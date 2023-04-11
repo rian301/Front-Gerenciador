@@ -1,0 +1,15 @@
+<h1 mat-dialog-title>Recortar imagem</h1>
+<div mat-dialog-content>
+  <div class="row">
+    <div class="col-8">
+      <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true"
+        [aspectRatio]="data.aspectRatio" format="png" (imageCropped)="imageCropped($event)"></image-cropper>
+    </div>
+    <div class="col-4">
+      <img class="img-fluid" [src]="croppedImage" /></div>
+  </div>
+</div>
+<div mat-dialog-actions class="w-100">
+  <button type="submit" (click)="salvar()" mat-flat-button color="primary" class="float-right">Selecionar</button>
+  <button type="button" (click)="cancelar()" mat-flat-button color="warn" class="float-right mr-3">Cancelar</button>
+</div>

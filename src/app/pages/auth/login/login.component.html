@@ -1,0 +1,40 @@
+<form class="login-form d-flex flex-column" [formGroup]="formLogin" (ngSubmit)="entrar()">
+
+  <div class="row flex-column">
+    <div class="col">
+      <mat-form-field appearance="outline">
+        <mat-label>E-mail</mat-label>
+        <input matInput type="email" placeholder="E-mail" formControlName="email">
+        <mat-error *ngIf="formLogin.controls['email'].hasError('required')">
+          Informe o e-mail</mat-error>
+        <mat-error *ngIf="formLogin.controls['email'].hasError('email')">
+          E-mail inválido</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="col d-flex flex-column">
+      <mat-form-field appearance="outline">
+        <mat-label>Senha</mat-label>
+        <input matInput type="password" placeholder="Senha" formControlName="password">
+        <mat-error *ngIf="formLogin.controls['password'].hasError('required')">
+          Informe a senha</mat-error>
+      </mat-form-field>
+    </div>
+    
+    <div class="col text-right">
+      <a mat-flat-button [routerLink]="'/esqueci-senha'">esqueci minha senha</a>
+    </div>
+
+    <div class="col">
+      <mat-checkbox [formControl]="formLogin.controls.rememberMe">lembrar-me</mat-checkbox>
+    </div>
+  </div>
+
+  <div class="row flex-column">
+    <div class="col mt-1">
+      <button type="submit" mat-raised-button color="primary" class="btn-block">Entrar</button>
+    </div>
+  </div>
+
+
+</form>

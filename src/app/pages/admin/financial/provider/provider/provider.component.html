@@ -1,0 +1,66 @@
+<div class="row">
+    <div class="col">
+        <h1 class="title-page d-flex flex-align-center">
+            {{title}}
+        </h1>
+    </div>
+</div>
+<mat-card>
+    <form [formGroup]="form" (ngSubmit)="save()" style="overflow-x: hidden;">
+        <div class="row">
+            <div class="col-12">
+                <p class="p-title">Informações do fornecedor</p>
+            </div>
+
+            <input-validator class="col" [messages]="{required: 'Campo obrigatório'}">
+                <mat-form-field appearance="outline">
+                    <mat-label>Nome</mat-label>
+                    <input matInput type="text" formControlName="name" placeholder="Nome">
+                </mat-form-field>
+            </input-validator>
+
+            <input-validator class="col-md-3" [messages]="{required: 'Campo obrigatório'}">
+                <mat-form-field appearance="outline">
+                    <mat-label>Documento</mat-label>
+                    <input matInput type="text" formControlName="document" placeholder="Documento" mask="CPF_CNPJ">
+                </mat-form-field>
+            </input-validator>
+
+            <input-validator class="col" [messages]="{required: 'Campo obrigatório'}">
+                <mat-form-field appearance="outline">
+                    <mat-label>Banco</mat-label>
+                    <input matInput type="text" formControlName="bank" placeholder="Banco">
+                </mat-form-field>
+            </input-validator>
+
+            <input-validator class="col" [messages]="{required: 'Campo obrigatório'}">
+                <mat-form-field appearance="outline">
+                    <mat-label>Agência</mat-label>
+                    <input matInput type="text" formControlName="agency" placeholder="Agência">
+                </mat-form-field>
+            </input-validator>
+
+            <input-validator class="col" [messages]="{required: 'Campo obrigatório'}">
+                <mat-form-field appearance="outline">
+                    <mat-label>Conta</mat-label>
+                    <input matInput type="text" formControlName="acount" placeholder="Conta">
+                </mat-form-field>
+            </input-validator>
+
+            <input-validator class="col" [messages]="{required: 'Campo obrigatório'}">
+                <mat-form-field appearance="outline">
+                    <mat-label>Pix</mat-label>
+                    <input matInput type="text" formControlName="pix" placeholder="Pix">
+                </mat-form-field>
+            </input-validator>
+        </div>
+        <div class="row col-12">
+            <div class="col-md-12 text-right">
+                <button type="button" mat-stroked-button class="text-primary border-primary mr-3"
+                    (click)="cancel()">Cancelar</button>
+                <button type="submit" [ngClass]="{'bg-disabled': loading}" [class.btnSpinner]="loading" mat-flat-button
+                    class="bg-primary text-white">Salvar</button>
+            </div>
+        </div>
+    </form>
+</mat-card>

@@ -1,0 +1,112 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col" style="align-self: center">
+      <h1 class="title-page d-flex flex-align-center">
+        {{ title }}
+      </h1>
+    </div>
+    <div class="col text-right">
+      <button type="button" mat-stroked-button class="text-primary border-primary my-2" (click)="new()">Novo</button>
+    </div>
+  </div>
+
+  <mat-card class="mb-3">
+    <div class="row">
+      <mat-form-field class="col-md-3" appearance="outline">
+        <mat-label>Período</mat-label>
+        <mat-date-range-input [formGroup]="form" [rangePicker]="rangePicker">
+          <input matStartDate placeholder="Data Inicial" formControlName="datInit" />
+          <input matEndDate placeholder="Data Final" formControlName="datEnd" (dateChange)="load()" />
+        </mat-date-range-input>
+        <mat-datepicker-toggle matSuffix [for]="rangePicker"></mat-datepicker-toggle>
+        <mat-date-range-picker #rangePicker></mat-date-range-picker>
+      </mat-form-field>
+
+      <div class="col-md-3">
+        <ng-select appearance="outline" [items]="categories" bindLabel="text" bindValue="id"
+          [(ngModel)]="filterCategory" (change)="searchFilter()" placeholder="Categoria"> </ng-select>
+      </div>
+
+      <div class="col-md-3">
+        <ng-select appearance="outline" [items]="providers" bindLabel="text" bindValue="id" [(ngModel)]="filterProvider"
+          (change)="searchFilter()" placeholder="Fornecedor"> </ng-select>
+      </div>
+
+      <div class="col text-right" [hidden]="dataSource.data.length <= 0">
+        <app-table-export [dataSource]="dataSource" [columns]="columnsExport" [columnsName]="columnsExportName"
+          [name]="title"></app-table-export>
+      </div>
+    </div>
+  </mat-card>
+
+  <mat-table [dataSource]="dataSource" matSort matSortActive="id" class="mat-elevation-z8">
+    <ng-container matColumnDef="description">
+      <mat-header-cell mat-sort-header *matHeaderCellDef> Descrição </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{ row.description }} </mat-cell>
+      <mat-footer-cell *matFooterCellDef> Total </mat-footer-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="providerName">
+      <mat-header-cell mat-sort-header *matHeaderCellDef> Fornecedor </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{ row.providerName }} </mat-cell>
+      <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="date">
+      <mat-header-cell mat-sort-header *matHeaderCellDef> Data </mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        {{ row.date | date: 'dd/MM/yyyy' }}
+      </mat-cell>
+      <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="value">
+      <mat-header-cell *matHeaderCellDef> Valor </mat-header-cell>
+      <mat-cell *matCellDef="let row"> R$ {{ row.value | number: '1.2-2' }} </mat-cell>
+      <mat-footer-cell *matFooterCellDef> R$ {{ getTotal() | number: '1.2-2' }}</mat-footer-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="paymentDate">
+      <mat-header-cell mat-sort-header *matHeaderCellDef> Data de pagamento </mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        {{ row.paymentDate | date: 'dd/MM/yyyy' }}
+      </mat-cell>
+      <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="expenseCategoryName">
+      <mat-header-cell mat-sort-header *matHeaderCellDef> Categoria </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{ row.expenseCategoryName }} </mat-cell>
+      <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="action">
+      <mat-header-cell *matHeaderCellDef> Ação </mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <button mat-icon-button mat-sm-button type="button" (click)="edit(row)" [matTooltip]="editLabel">
+          <i class="fas fa-pen fa-lg text-black"></i>
+        </button>
+        <button class="ml-2 btn-del mr-2" mat-icon-button mat-sm-button type="button" (click)="modalConfirmationRemove(row.id)" matTooltip="Remover">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-cell>
+      <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumnsExpense"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumnsExpense"></mat-row>
+    <mat-footer-row *matFooterRowDef="displayedColumnsExpense" [hidden]="loading"></mat-footer-row>
+  </mat-table>
+
+  <mat-card *ngIf="loading" class="w-100 d-flex justify-content-center table-loading">
+    <mat-spinner diameter="20"></mat-spinner>
+  </mat-card>
+
+  <mat-card *ngIf="!loading && dataSource.data.length <= 0" class="w-100 d-flex justify-content-start table-loading">
+    <small>Nenhum item encontrado.</small>
+  </mat-card>
+
+  <mat-paginator [hidden]="dataSource.data.length <= 0" class="mat-paginator-table"
+    [pageSize]="paginatorHelper.PageSizeFull" [pageSizeOptions]="paginatorHelper.PageSizeOptions" showFirstLastButtons>
+  </mat-paginator>
+</div>

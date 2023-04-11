@@ -1,0 +1,3 @@
+@mixin bg-gradient($angle: 180deg, $color1: #000, $color2: #FFF) {
+    background: linear-gradient($angle, $color, $color2) fixed;
+}  

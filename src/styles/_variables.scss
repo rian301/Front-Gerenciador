@@ -1,0 +1,127 @@
+//
+// Fonts
+//
+
+$font-family: 'Ubuntu', sans-serif;
+
+
+// Color system
+
+$white:     #FFFFFF !default;
+$gray-100:  #f8f9fa !default;
+$gray-200:  #e5e5e5 !default;
+$gray-300:  #dee2e6 !default;
+$gray-400:  #ced4da !default;
+$gray-500:  #b4b4b4 !default;
+$gray-600:  #6c757d !default;
+$gray-700:  #495057 !default;
+$gray-800:  #343a40 !default;
+$gray-900:  #212529 !default;
+$gray-1000: #1D1E32 !default;
+$gray-1100: #10111E !default;
+$black:     #000 !default;
+
+$grays: () !default;
+// stylelint-disable-next-line scss/dollar-variable-default
+$grays: map-merge(
+  (
+    "100":  $gray-100,
+    "200":  $gray-200,
+    "300":  $gray-300,
+    "400":  $gray-400,
+    "500":  $gray-500,
+    "600":  $gray-600,
+    "700":  $gray-700,
+    "800":  $gray-800,
+    "900":  $gray-900,
+    "1000": $gray-1000,
+    "1100": $gray-1100
+  ),
+  $grays
+);
+
+$blue:      #337ab7 !default;
+$darkblue:  #213661 !default;
+$indigo:    #6610f2 !default;
+$purple:    #6f42c1 !default;
+$pink:      #e83e8c !default;
+$red:       #ea4d4d !default;
+$orange:    #fd7e14 !default;
+$yellow:    #dfc700 !default;
+$green:     #198754 !default;
+$teal:      #23B89B !default;
+$cyan:      #17a2b8 !default;
+
+$colors: () !default;
+// stylelint-disable-next-line scss/dollar-variable-default
+$colors: map-merge(
+  (
+    "blue":       $blue,
+    "indigo":     $indigo,
+    "purple":     $purple,
+    "pink":       $pink,
+    "red":        $red,
+    "orange":     $orange,
+    "yellow":     $yellow,
+    "green":      $green,
+    "teal":       $teal,
+    "cyan":       $cyan,
+    "white":      $white,
+    "gray":       $gray-600,
+    "gray-dark":  $gray-800
+  ),
+  $colors
+);
+
+$primary:       $blue !default;
+$secondary:     $darkblue !default;
+$success:       $green !default;
+$info:          $teal !default;
+$warning:       $yellow !default;
+$danger:        $red !default;
+$light:         $gray-300 !default;
+$dark:          $gray-800 !default;
+$gray-gradient: linear-gradient(80deg, $gray-300, $gray-400) !default;
+$gradient:      linear-gradient(80deg, $primary, $secondary) !default;
+
+$theme-colors: () !default;
+// stylelint-disable-next-line scss/dollar-variable-default
+$theme-colors: map-merge(
+  (
+    "primary":    $primary,
+    "secondary":  $secondary,
+    "success":    $success,
+    "info":       $info,
+    "warning":    $warning,
+    "danger":     $danger,
+    "light":      $light,
+    "dark":       $dark
+  ),
+  $theme-colors
+);
+
+// Grid breakpoints
+//
+// Define the minimum dimensions at which your layout will change,
+// adapting to different screen sizes, for use in media queries.
+
+$grid-breakpoints: () !default;
+// stylelint-disable-next-line scss/dollar-variable-default
+$grid-breakpoints: map-merge(
+  (
+    xs: 0,
+    sm: 576px,
+    md: 768px,
+    lg: 992px,
+    xl: 1200px,
+    xxl: 1900px
+  ),
+  $grid-breakpoints
+);
+
+// Grid Breakpoints
+$sm: 576px;
+$md: 768px;
+$lg: 992px;
+$xl: 1200px;
+$xxl: 1900px;

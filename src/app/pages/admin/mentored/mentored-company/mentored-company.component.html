@@ -1,0 +1,149 @@
+<mat-dialog-content>
+  <div class="container-fluid">
+    <form [formGroup]="form" (ngSubmit)="save()" style="overflow-x: hidden">
+      <div class="row">
+        <div class="col-12">
+          <p class="p-title">Dados da empresa</p>
+        </div>
+
+        <input-validator class="col-md-6" [messages]="{ required: 'Campo obrigatório' }">
+          <mat-form-field appearance="outline">
+            <mat-label>Nome</mat-label>
+            <input matInput type="text" formControlName="companyName" placeholder="Nome" required cdkFocusInitial
+              [readonly]="disabledAll" />
+          </mat-form-field>
+        </input-validator>
+
+        <input-validator class="col-md-6" [messages]="{ required: 'Campo obrigatório' }">
+          <mat-form-field appearance="outline">
+            <mat-label>CNPJ</mat-label>
+            <input matInput type="text" formControlName="cnpj" placeholder="CNPJ" mask="00.000.000/0000-00" required
+              [readonly]="disabledAll" />
+          </mat-form-field>
+        </input-validator>
+
+        <input-validator class="col-md-6" [messages]="{ required: 'Campo obrigatório' }">
+          <mat-form-field appearance="outline">
+            <mat-label>E-mail</mat-label>
+            <input matInput type="text" formControlName="email" placeholder="E-mail" [readonly]="disabledAll" />
+          </mat-form-field>
+        </input-validator>
+
+        <input-validator class="col-md-6" [messages]="{ required: 'Campo obrigatório' }">
+          <mat-form-field appearance="outline">
+            <mat-label>Instagram</mat-label>
+            <input matInput type="text" formControlName="instagram" placeholder="Instagram" [readonly]="disabledAll" />
+          </mat-form-field>
+        </input-validator>
+
+        <input-validator class="col-md-6" [messages]="{ required: 'Campo obrigatório' }">
+          <mat-form-field appearance="outline">
+            <mat-label>Telefone</mat-label>
+            <input matInput type="text" formControlName="phone" placeholder="Telefone" [readonly]="disabledAll" />
+          </mat-form-field>
+        </input-validator>
+
+        <input-validator class="col-md-4" [messages]="{ required: 'Campo obrigatório' }">
+          <mat-form-field appearance="outline">
+            <mat-label>Data de inscrição</mat-label>
+            <input matInput type="text" formControlName="subscriptionDate" placeholder="Data de inscrição"
+              [matDatepicker]="picker" required [readonly]="disabledAll" />
+            <mat-datepicker-toggle matSuffix [for]="picker">
+            </mat-datepicker-toggle>
+            <mat-datepicker #picker color="primary" [disabled]="disabledAll" startView="month" [startAt]="startDate">
+            </mat-datepicker>
+          </mat-form-field>
+        </input-validator>
+
+        <div class="col-12">
+          <p class="p-title">Endereço</p>
+        </div>
+
+        <input-validator class="col-md-3" [messages]="{ required: 'Campo obrigatório' }">
+          <mat-form-field appearance="outline">
+            <mat-label>CEP</mat-label>
+            <input (keyup)="searchCep($event)" matInput type="text" formControlName="zipCode" placeholder="CEP"
+              mask="00000-000" required [readonly]="disabledAll" />
+          </mat-form-field>
+        </input-validator>
+        <div class="offset-6"></div>
+
+        <input-validator class="col-md-6" [messages]="{ required: 'Campo obrigatório' }">
+          <mat-form-field appearance="outline">
+            <mat-label>Endereço</mat-label>
+            <input matInput type="text" formControlName="street" placeholder="Endereço" required
+              [readonly]="disabledAll" />
+          </mat-form-field>
+        </input-validator>
+
+        <input-validator class="col-md-3" [messages]="{ required: 'Campo obrigatório' }">
+          <mat-form-field appearance="outline">
+            <mat-label>Número</mat-label>
+            <input matInput type="text" formControlName="number" placeholder="Número" required
+              [readonly]="disabledAll" />
+          </mat-form-field>
+        </input-validator>
+
+        <mat-form-field class="col-md-6" appearance="outline">
+          <mat-label>Complemento</mat-label>
+          <input matInput type="text" formControlName="complement" placeholder="Complemento" />
+        </mat-form-field>
+
+        <input-validator class="col-md-6" [messages]="{ required: 'Campo obrigatório' }">
+          <mat-form-field appearance="outline">
+            <mat-label>Bairro</mat-label>
+            <input matInput type="text" formControlName="district" placeholder="Bairro" required
+              [readonly]="disabledAll" />
+          </mat-form-field>
+        </input-validator>
+
+        <input-validator class="col-md-6" [messages]="{ required: 'Campo obrigatório' }">
+          <mat-form-field appearance="outline">
+            <mat-label>Cidade</mat-label>
+            <input matInput type="text" formControlName="city" placeholder="Cidade" required [readonly]="disabledAll" />
+          </mat-form-field>
+        </input-validator>
+
+        <input-validator class="col-md-2" [messages]="{ required: 'Campo obrigatório' }">
+          <mat-form-field appearance="outline">
+            <mat-label>Estado</mat-label>
+            <input matInput type="text" formControlName="state" placeholder="Estado" maxlength="2" required
+              [readonly]="disabledAll" />
+          </mat-form-field>
+        </input-validator>
+
+        <input-validator class="col-md-12 pb-2">
+          <mat-form-field appearance="fill">
+            <mat-label>Observação</mat-label>
+            <textarea matInput #input formControlName="note" placeholder="Observação" [maxLength]="1000"
+              [readonly]="disabledAll"></textarea>
+            <mat-hint align="end">{{ input.value?.length || 0 }}/1000</mat-hint>
+          </mat-form-field>
+        </input-validator>
+
+        <div class="row col-12 pr-0">
+          <div class="col-md-6 pt-3 log-register">
+            <p *ngIf="form.controls.createdAt.value != null">
+              Cadastrado em
+              {{ form.controls.createdAt.value | date: "dd/MM/yyyy HH:mm:ss" }}
+            </p>
+          </div>
+          <div class="col-md-6 text-right pr-0">
+            <button *ngIf="disabledAll" type="button" mat-stroked-button class="text-primary border-primary"
+              (click)="cancel()">
+              Fechar
+            </button>
+            <button *ngIf="!disabledAll" type="button" mat-stroked-button class="text-primary border-primary mr-3"
+              (click)="cancel()">
+              Cancelar
+            </button>
+            <button *ngIf="!disabledAll" type="submit" [ngClass]="{ 'bg-disabled': loading }"
+              [class.btnSpinner]="loading" mat-flat-button class="bg-primary text-white">
+              Salvar
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</mat-dialog-content>

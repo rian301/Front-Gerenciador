@@ -1,0 +1,51 @@
+a {
+  text-decoration: none;
+}
+
+.isCircle{
+  border-radius: 50% !important;
+}
+
+.default-card {
+  bottom: 0;
+  width: auto;
+  height: auto;
+  overflow: hidden;
+  border-radius: 10px;
+  background-position: center;
+  background-size: cover;
+  border: 1px solid rgba(0, 0, 0, .1);
+}
+
+.opacity-1 {
+  opacity: 1 !important;
+  transition: 100ms ease-in-out;
+}
+
+.upload {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+}
+
+.upload-toggle-pai:hover .upload-toggle {
+  opacity: 1;
+  transition: 100ms ease-in-out;
+}
+
+.upload-toggle {
+  opacity: 0;
+  transition: 100ms ease-in-out;
+  position: absolute;
+  top: 10px;
+  left: 25px;
+  background-color: white;
+  height: 21%;
+  width: 20%;
+  border-radius: 50%;
+  border: 1px solid #eee;
+}
+
+.dif-h {
+  height: 22%;
+}
+

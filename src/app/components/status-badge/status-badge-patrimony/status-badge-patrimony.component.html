@@ -1,0 +1,5 @@
+<span class="badge badge-status" [ngClass]="{'bg-success': value === StatusEnum.Active,
+                                             'bg-danger': value === StatusEnum.Inactive || value === StatusEnum.GiveAway || value === StatusEnum.Returned,
+                                             'bg-primary': value !== StatusEnum.Active && value !== StatusEnum.Inactive}">
+    {{statusDescription}}
+</span>

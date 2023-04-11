@@ -1,0 +1,41 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col" style="align-self: center;">
+            <h1 class="title-page d-flex flex-align-center">
+                Prêmios
+            </h1>
+        </div>
+        <div class="col text-right">
+            <button type="button" mat-stroked-button class="text-primary border-primary my-2" (click)="new()">
+                Novo
+            </button>
+        </div>
+    </div>
+
+    <mat-card>
+        <div class="row mb-n3">
+            <div class="col mr-n3">
+                <mat-form-field appearance="outline">
+                    <mat-label>Pesquisar</mat-label>
+                    <input matInput (keyup)="searchFilter($event.target.value)"
+                        placeholder="Pesquise por qualquer campo da tabela">
+                </mat-form-field>
+            </div>
+
+            <!-- <div class="col-auto pt-2 mb-2 ml-n3">
+                <button mat-icon-button mat-sm-button type="button" (click)="imprimir(tableRef)" matTooltip="Imprimir">
+                    <mat-icon>print</mat-icon>
+                </button>
+            </div> -->
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <app-dinamic-table #tableRef [source]="source" [canShowActions]="true" (isEditing)="edit($event)"
+                    [showSearch]="false" [dataSource]="matTableRef" (customFilter)="matTableRef = $event"
+                    [canPrint]="false">
+                </app-dinamic-table>
+            </div>
+        </div>
+    </mat-card>
+</div>

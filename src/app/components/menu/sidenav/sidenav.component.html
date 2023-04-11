@@ -1,0 +1,37 @@
+<aside class="d-flex flex-column h-100">
+
+  <nav class="side-nav-menu">
+    <div class="menu-list">
+      <mat-accordion>
+        <mat-expansion-panel class="menu-item" *ngFor="let item of menuItens" [expanded]="item.expanded"
+          [hideToggle]="item.submenus == 0" [disabled]="item.submenus == 0" [class.active]="item.active">
+
+          <mat-expansion-panel-header class="active" [routerLink]="item.url != ''? item.url : []">
+            <mat-panel-title>
+              <i matPrefix class="material-icons mr-1">{{ item.icon != '' ? item.icon : 'code' }}</i>
+              <span>
+                {{item.name}}
+              </span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <div *ngIf="item.submenus != undefined && item.submenus != null">
+            <div class="menu-subitem" [routerLink]="subitem.url" *ngFor="let subitem of item.submenus"
+              [class.active]="subitem.active">
+              <i matPrefix class="mr-1" [ngClass]="subitem.cssClass">{{ subitem.icon != '' ? subitem.icon : 'code' }}</i>
+              <p>
+                {{subitem.name}}
+              </p>
+            </div>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+  </nav>
+
+  <footer>
+    <p class="text-center">
+      Black Mk Admin © Version {{version}}
+    </p>
+  </footer>
+</aside>

@@ -1,0 +1,29 @@
+/*
+ * Integração de uso do bootstrap com material form-field
+ */
+ form,
+ .form-row {
+
+    .readonly {
+        color: rgba($black, 0.38) !important;
+    }
+
+    .form-group,
+    .row,
+    .d-flex {
+
+        .mat-form-field {
+            width: 100%;
+            font-size: 14px;
+
+            .mat-form-field-outline {
+                background-color: $white;
+            }
+        }
+    }
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}

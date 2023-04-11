@@ -1,0 +1,82 @@
+<!-- <div class="container-fluid">
+    <h4 class="title-page d-flex flex-align-center">
+        {{data.dependentId != null ? 'Editar ': 'Nova '}}assinatura
+    </h4>
+
+    <form [formGroup]="form" (ngSubmit)="save()">
+        <div class="row col-12">
+            <input-validator class="col-md-2" [messages]="{required: 'Campo obrigatório'}">
+                <mat-form-field appearance="outline">
+                    <mat-label>Data de inscrição</mat-label>
+                    <input matInput type="text" formControlName="subscriptionDate" placeholder="Data de inscrição"
+                        [matDatepicker]="picker0">
+                    <mat-datepicker-toggle matSuffix [for]="picker0">
+                    </mat-datepicker-toggle>
+                    <mat-datepicker #picker0 color="primary" disabled="false" startView="multi-year"
+                        [startAt]="startDate">
+                    </mat-datepicker>
+                </mat-form-field>
+            </input-validator>
+
+            <input-validator class="col-md-3" [messages]="{required: 'Campo obrigatório'}">
+                <mat-form-field appearance="outline">
+                    <mat-label>Produto</mat-label>
+                    <mat-select formControlName="productId" required>
+                        <mat-option *ngFor="let item of products" [value]="item.id">{{item.name}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </input-validator>
+
+            <input-validator class="col-md-auto" [messages]="{required: 'Campo obrigatório'}">
+                <mat-form-field appearance="outline">
+                    <mat-label>Valor inicial</mat-label>
+                    <input matInput type="text" formControlName="initialAmount" placeholder="Valor R$" currencyMask
+                        [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',', align: 'left' }" required>
+                </mat-form-field>
+            </input-validator>
+
+            <input-validator class="col-md-auto" [messages]="{required: 'Campo obrigatório'}">
+                <mat-form-field appearance="outline">
+                    <mat-label>Valor desconto</mat-label>
+                    <input matInput type="text" formControlName="discountAmount" placeholder="Valor R$" currencyMask
+                        [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',', align: 'left' }">
+                </mat-form-field>
+            </input-validator>
+
+            <input-validator class="col-auto" [messages]="{required: 'Campo obrigatório'}">
+                <mat-form-field appearance="outline">
+                    <mat-label>Valor total</mat-label>
+                    <input matInput type="text" formControlName="totalAmount" placeholder="Valor R$" currencyMask
+                        [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',', align: 'left' }" required>
+                </mat-form-field>
+            </input-validator>
+
+            <input-validator class="col-md-1" [messages]="{required: 'Campo obrigatório'}">
+                <mat-form-field appearance="outline">
+                    <mat-label>Parcelar em</mat-label>
+                    <mat-select formControlName="installments">
+                        <mat-option *ngFor="let parcela of installments" [value]="parcela.value">
+                            {{parcela.description}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </input-validator>
+
+            <input-validator class="col-md-3" [messages]="{required: 'Campo obrigatório'}">
+                <mat-form-field appearance="outline">
+                    <mat-label>Empresa</mat-label>
+                    <mat-select formControlName="mentoredCompanyId">
+                        <mat-option *ngFor="let item of companies" [value]="item.id">{{item.companyName}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </input-validator>
+
+        </div>
+        <mat-dialog-actions class="mr-n2" align="end">
+            <button type="button" mat-stroked-button mat-dialog-close
+                class="text-primary border-primary">Cancelar</button>
+            <button type="submit" mat-flat-button class="bg-primary text-white" [disabled]="loading"
+                [ngClass]="{'bg-disabled': loading}" [class.btnSpinner]="loading">Salvar</button>
+        </mat-dialog-actions>
+    </form>
+</div> -->

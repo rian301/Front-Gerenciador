@@ -1,0 +1,8 @@
+<div class="row d-flex justify-content-center align-items-center">
+  <div *ngFor="let passo of passoAtras; let i = index"><span class="ml-2" *ngIf="i > 0">/ </span><span
+      class="text-hover text-primary" (click)="voltarItem(passo)">{{passo.nome}}</span>
+  </div>
+  <span class="ml-2" *ngIf="passoAtual">/ {{passoAtual}}</span>
+</div>
+<highcharts-chart [Highcharts]="Highcharts" [options]="options"
+  style="width: 37.5vw; height: 300px; max-height: 300px; display: block;">

@@ -1,0 +1,22 @@
+export class CnpjConsultModel {
+    abertura: Date = null;
+    ultimaAtualizacao: Date = null;
+    bairro: string = null;
+    capitalSocial: string = null;
+    cep: string = null;
+    complemento: string = null;
+    dataSituacao: string = null;
+    email: string = null;
+    fantasia: string = null;
+    logradouro: string = null;
+    motivoSituacao: string = null;
+    municipio: string = null;
+    naturezaJuridica: string = null;
+    nome: string = null;
+    porte: string = null;
+    situacao: string = null;
+    telefone: string = null;
+    tipo: string = null;
+    uf: string = null;
+    numero: number = null;
+}

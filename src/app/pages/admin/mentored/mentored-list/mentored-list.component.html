@@ -1,0 +1,186 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col" style="align-self: center">
+      <h1 class="title-page d-flex flex-align-center">
+        {{ title }}
+      </h1>
+    </div>
+    <div class="col text-right">
+      <button
+        type="button"
+        mat-stroked-button
+        class="text-primary border-primary my-2"
+        (click)="new()"
+      >
+        Novo
+      </button>
+    </div>
+  </div>
+
+  <mat-card class="mb-3">
+    <div class="row">
+      <div class="col-md-3">
+        <ng-select
+          appearance="outline"
+          [items]="mentoreds"
+          bindLabel="text"
+          bindValue="id"
+          [(ngModel)]="filterMentoredValue"
+          (change)="searchFilter()"
+          placeholder="Nome"
+        >
+        </ng-select>
+      </div>
+
+      <div class="col-md-3">
+        <ng-select
+          appearance="outline"
+          [items]="companies"
+          bindLabel="text"
+          bindValue="id"
+          [(ngModel)]="filterMentoredCompanyValue"
+          (change)="searchFilter()"
+          placeholder="Nome da Empresa"
+        >
+        </ng-select>
+      </div>
+
+      <div class="col-md-3">
+        <mat-form-field appearance="outline">
+          <mat-label>Mês de aniversário</mat-label>
+          <input
+            matInput
+            [(ngModel)]="birthDate"
+            placeholder="Mês de aniversário"
+            [maxLength]="2"
+            (keyup)="searchMonth()"
+          />
+        </mat-form-field>
+      </div>
+
+      <div class="col text-right" [hidden]="dataSource.data.length <= 1">
+        <app-table-export
+          [dataSource]="dataSource"
+          [columns]="columnsExport"
+          [columnsName]="columnsExportName"
+          [name]="title"
+        ></app-table-export>
+      </div>
+    </div>
+  </mat-card>
+
+  <mat-table
+    [dataSource]="dataSource"
+    matSort
+    matSortActive="id"
+    class="mat-elevation-z8"
+  >
+    <ng-container matColumnDef="name">
+      <mat-header-cell mat-sort-header *matHeaderCellDef>
+        Nome
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{ row.name }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+      <mat-header-cell mat-sort-header *matHeaderCellDef>
+        E-mail
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{ row.email }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="birthDate">
+      <mat-header-cell mat-sort-header *matHeaderCellDef>
+        Data Aniversário
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        {{ row.birthDate | date: "dd/MM/yyyy" }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="cpf">
+      <mat-header-cell mat-sort-header *matHeaderCellDef> CPF </mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        {{ row.cpf | mask: "000.000.000-00" }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="instagram">
+      <mat-header-cell mat-sort-header *matHeaderCellDef>
+        Instagram
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{ row.instagram }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <app-status-badge-mentored
+          [value]="row.status"
+          [statusDescription]="row.statusDescription"
+        >
+        </app-status-badge-mentored>
+      </mat-cell>
+      <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="action">
+      <mat-header-cell *matHeaderCellDef> Ação </mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <button
+          mat-icon-button
+          mat-sm-button
+          type="button"
+          (click)="edit(row)"
+          matTooltip="Editar"
+        >
+          <i
+            class="fas fa-pen fa-lg text-black mr-2"
+          ></i>
+        </button>
+        <button
+          mat-icon-button
+          mat-sm-button
+          type="button"
+          (click)="view(row)"
+          matTooltip="Visualizar"
+        >
+          <i
+            class="fas fa-eye fa-lg text-black ml-4"
+          ></i>
+        </button>
+        <button class="ml-2 btn-del ml-4" mat-icon-button mat-sm-button type="button" (click)="modalConfirmationRemove(row.id)" matTooltip="Remover">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-cell>
+      <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    <!-- <mat-footer-row *matFooterRowDef="displayedColumnsLanch" [hidden]="loading"></mat-footer-row> -->
+  </mat-table>
+
+  <mat-card
+    *ngIf="loading"
+    class="w-100 d-flex justify-content-center table-loading"
+  >
+    <mat-spinner diameter="20"></mat-spinner>
+  </mat-card>
+
+  <mat-card
+    *ngIf="!loading && dataSource.data.length <= 0"
+    class="w-100 d-flex justify-content-start table-loading"
+  >
+    <small>Nenhum item encontrado.</small>
+  </mat-card>
+
+  <mat-paginator
+    [hidden]="dataSource.data.length <= 0"
+    class="mat-paginator-table"
+    [pageSize]="paginatorHelper.PageSize"
+    [pageSizeOptions]="paginatorHelper.PageSizeOptions"
+    showFirstLastButtons
+  >
+  </mat-paginator>
+</div>

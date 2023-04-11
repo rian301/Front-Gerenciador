@@ -1,0 +1,29 @@
+.search-form {
+
+  .mat-form-field {
+    font-size: 14px;
+    width: 100%;
+
+    &.mat-form-field-appearance-outline {
+
+      .mat-form-field-wrapper {
+        margin: 0;
+        padding: 0;
+
+        .mat-form-field-flex {
+
+          .mat-form-field-infix {
+            padding: 0.6em 0;
+            border-top-width: 3px;
+          }
+        }
+      }
+    }
+
+  }
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}

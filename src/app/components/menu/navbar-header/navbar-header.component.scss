@@ -1,0 +1,81 @@
+@import 
+    'variables',
+    'mixins/material-shadow'
+;
+
+.navbar-header {
+    position: relative;
+    z-index: 1000;
+
+    .new {
+        margin-left: 60px !important;
+    }
+
+    .mat-toolbar {
+        background-color: $white;
+        @include materialShadow(1, 'box');
+
+        .button-toogle-menu {
+            
+            i {
+                font-size: 24px;
+                color: rgba($gray-700, 0.5);
+            }
+        }
+
+        .search-form {
+            flex: 1 1 auto;
+
+            .mat-form-field {
+                font-size: 14px;
+                width: 100%;
+            }
+
+            .material-icons {
+                font-size: 24px;
+                color: rgba($gray-700, 0.5);
+            }
+            
+            .search-input {
+                margin-left: 30px;
+                position: relative;
+                font-size: 17px;
+                color: rgba($secondary, 0.8);
+            }
+        }
+
+        .mat-button {
+            
+            &[badge="true"]:after {
+                content: '';
+                position: absolute;
+                width: 14px;
+                height: 14px;
+                background: $purple;
+                right: 0;
+                top: 0;
+                border: 2px solid $white;
+                border-radius: 50%;
+            }
+        }
+
+        .user-name {
+            font-size: 14px;
+            color: $gray-700;
+        }
+
+        .user-image {
+            font-size: 32px;
+            color: $primary;
+            border-radius: 50%;
+        }
+
+        
+        label.mat-form-field-label.mat-form-field-label {
+            color: rgba($gray-700, 0.5);
+            font-weight: 100;
+        }
+
+    }
+    
+}

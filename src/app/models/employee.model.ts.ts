@@ -1,0 +1,49 @@
+export class EmployeeModel {
+    id: number = null;
+    name: string = null;
+    email: string = null;
+    rg: string = null;
+    cnpj: string = null;
+    cpf: string = null;
+    phoneNumber: string = null;
+    birthDate: Date = null;
+    admissionDate: Date = null;
+    demissionDate: Date = null;
+    function: string = null;
+    monthlyHour: string = null; // Horas trabalhadas por mês
+    workSchedule: string = null; // Horário de trabalho
+    gender: string = null; // Gênero
+    pis: string = null;
+    mom: string = null;
+    father: string = null;
+    schooling: string = null; // Escolaridade
+    bank: string = null;
+    agency: string = null;
+    acount: string = null;
+    holeDays: string = null; // Férias
+    holeAmountPortion: number = null; // Quantidade de parcelas em que foi pago as férias
+    wage13: string = null; // 13°
+    wage13Portion: number = null; // Quantidade de parcelas em que foi pago o 13°
+    zipCode: string = null;
+    street: string = null;
+    number: number = null;
+    complement: string = null;
+    district: string = null;
+    city: string = null;
+    country: string = null;
+    state: string = null;
+    status: number = null;
+    userId: number = null;
+    note: string = null;
+    createdAt: Date = null;
+    type: number = null;
+    pix: string = null;
+    voterTitle: string = null;
+    reservistCertificate: string = null;
+    wage: string = null;
+    benefit: string = null;
+
+    statusDescription: string = null;
+    typeDescription: string = null;
+    // propriedades da lista (visualização)
+}

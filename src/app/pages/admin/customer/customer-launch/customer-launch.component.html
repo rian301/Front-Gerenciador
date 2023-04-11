@@ -1,0 +1,54 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6">
+            <h1 class="title-page d-flex flex-align-center pt-2">
+                {{data.id != null ? 'Editar ': 'Novo '}}lançamento
+            </h1>
+        </div>
+    </div>
+
+    <mat-card>
+        <form [formGroup]="form" (ngSubmit)="save()" style="overflow-x: hidden;">
+            <div class="row">
+                <input-validator class="col" [messages]="{required: 'Campo obrigatório'}">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Nicho</mat-label>
+                        <input matInput type="text" formControlName="nicho" placeholder="Nicho de atuação" required
+                            cdkFocusInitial>
+                    </mat-form-field>
+                </input-validator>
+
+                <input-validator class="col-md-3" [messages]="{required: 'Campo obrigatório'}">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Faturamento</mat-label>
+                        <input matInput type="text" formControlName="invoice" placeholder="Valor R$" mask="separator.2"
+                            thousandSeparator="." prefix="R$ ">
+                    </mat-form-field>
+                </input-validator>
+
+                <input-validator class="col" [messages]="{required: 'Campo obrigatório'}">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Instagram</mat-label>
+                        <input matInput type="text" formControlName="instagram" placeholder="@Instagram">
+                    </mat-form-field>
+                </input-validator>
+
+                <input-validator class="col pb-2">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Link Depoimento</mat-label>
+                        <input matInput type="text" formControlName="testimonial" placeholder="Link do depoimento">
+                    </mat-form-field>
+                </input-validator>
+
+                <div class="row col-12">
+                    <div class="col-md-12 text-right">
+                        <button type="button" mat-stroked-button class="text-primary border-primary mr-3"
+                            (click)="cancel()">Cancelar</button>
+                        <button type="submit" [ngClass]="{'bg-disabled': loading}" [class.btnSpinner]="loading"
+                            mat-flat-button class="bg-primary text-white">Salvar</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </mat-card>
+</div>

@@ -1,0 +1,36 @@
+@import 
+    'variables',
+    'mixins'
+;
+
+@mixin snacktype($bg-color: $white, $text-color: $gray-1000, $btn-color: $danger) {
+    background: $bg-color;
+    color: $text-color;
+
+    .mat-simple-snackbar-action {
+    
+        button {
+            max-height: initial;
+
+            .mat-button-wrapper {
+                color: $btn-color;
+            }
+        }
+    }
+}
+
+.mat-snack-bar-container {
+    
+    &.snack-default {
+        @include snacktype();
+    }
+    &.snack-success {
+        @include snacktype($success, $white, $gray-400);
+    }
+    &.snack-error {
+        @include snacktype($danger, $white, $gray-400);
+    }
+    &.snack-warn {
+        @include snacktype($warning, $gray-800, $white);
+    }
+}

@@ -1,0 +1,91 @@
+<div class="div container-fluid">
+    <div class="div cards">
+        <div class="row">
+            <div class="col-12 col-lg-3 col-md-6 mb-3">
+                <mat-card class="card-quantity" (click)="navigateCustomerAll()">
+                    <div class="row">
+                        <div class="col-4">
+                            <i class="material-icons">people</i>
+                        </div>
+                        <div class="col-8">
+                            <div class="text-right quantity-value">
+                                {{dashboard?.customerCount}}
+                            </div>
+                            <div class="text-right">
+                                Alunos cadastrados
+                            </div>
+                        </div>
+                    </div>
+                </mat-card>
+            </div>
+            <div class="col-12 col-lg-3 col-md-6 mb-3">
+                <mat-card class="card-quantity" (click)="navigateLaunchAll()">
+                    <div class="row">
+                        <div class="col-4">
+                            <i class="material-icons">event</i>
+                        </div>
+                        <div class="col-8">
+                            <div class="text-right quantity-value">
+                                {{dashboard?.launchCount}}
+                            </div>
+                            <div class="text-right">
+                                Lançamentos cadastrados
+                            </div>
+                        </div>
+                    </div>
+                </mat-card>
+            </div>
+              <div class="col-12 col-lg-3 col-md-6 mb-3">
+                <mat-card class="card-quantity" (click)="navigateProductAll()">
+                    <div class="row">
+                        <div class="col-4">
+                            <i class="material-icons">inventory</i>
+                        </div>
+                        <div class="col-8">
+                            <div class="text-right quantity-value">
+                                {{dashboard?.productCount}}
+                            </div>
+                            <div class="text-right">
+                                Produtos cadastrados
+                            </div>
+                        </div>
+                    </div>
+                </mat-card>
+            </div>
+            <div class="col-12 col-lg-3 col-md-6 mb-3">
+                <mat-card class="card-quantity" (click)="navigateAwardAll()">
+                    <div class="row">
+                        <div class="col-4">
+                            <i class="material-icons">emoji_events</i>
+                        </div>
+                        <div class="col-8">
+                            <div class="text-right quantity-value">
+                                {{dashboard?.awardCount}}
+                            </div>
+                            <div class="text-right">
+                                Pêmios cadastrados
+                            </div>
+                        </div>
+                    </div>
+                </mat-card>
+            </div>
+            <!--<div class="col-12 col-lg-3 col-md-6 mb-3">
+                <mat-card class="card-quantity" (click)="navigateCustomerDependentAll()">
+                    <div class="row">
+                        <div class="col-4">
+                            <i class="material-icons">badge</i>
+                        </div>
+                        <div class="col-8">
+                            <div class="text-right quantity-value">
+                                {{dashboard?.customerCount}}
+                            </div>
+                            <div class="text-right">
+                                associados cadastrados
+                            </div>
+                        </div>
+                    </div>
+                </mat-card>
+            </div> -->
+        </div>
+    </div>
+</div>

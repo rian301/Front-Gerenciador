@@ -1,0 +1,101 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col" style="align-self: center;">
+      <h1 class="title-page d-flex flex-align-center">
+        {{title}}
+      </h1>
+    </div>
+    <div class="col text-right">
+      <button type="button" mat-stroked-button class="text-primary border-primary my-2" (click)="new()">
+        Novo
+      </button>
+    </div>
+  </div>
+
+  <mat-card>
+
+    <div class="row mb-n3">
+      <div class="col mr-n3">
+        <ng-select appearance="outline" [items]="pendencies" bindLabel="text" bindValue="id"
+          [(ngModel)]="filterProviderValue" (change)="searchFilter()" placeholder="Descrição"
+          [ngModelOptions]="{standalone: true}">
+        </ng-select>
+      </div>
+
+      <mat-form-field class="col-md-2" appearance="outline">
+        <mat-label>Situação</mat-label>
+        <mat-select value="" (selectionChange)="searchFilter()" [(ngModel)]="filterStatus"
+          [ngModelOptions]="{ standalone: true }">
+          <mat-option value="">Todos</mat-option>
+          <mat-option *ngFor="let item of status" [value]="item">{{
+            item
+            }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <div class="col text-right" [hidden]="dataSource.data.length <= 0">
+        <app-table-export [dataSource]="dataSource" [columns]="columnsExport" [columnsName]="columnsExportName"
+          [name]="title"></app-table-export>
+      </div>
+    </div>
+  </mat-card>
+
+  <mat-table [dataSource]="dataSource" matSort matSortActive="id" matSortDirection="desc" class="mat-elevation-z8">
+
+    <ng-container matColumnDef="name">
+      <mat-header-cell mat-sort-header *matHeaderCellDef> Nome </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.name}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="requester">
+      <mat-header-cell mat-sort-header *matHeaderCellDef> Solicitante </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.requester}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="includDate">
+      <mat-header-cell mat-sort-header *matHeaderCellDef> Data da inclusão </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{ row.includDate | date: 'dd/MM/yyyy' }} </mat-cell>
+      <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="resolveDate">
+      <mat-header-cell mat-sort-header *matHeaderCellDef> Data da inclusão </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{ row.resolveDate | date: 'dd/MM/yyyy' }} </mat-cell>
+      <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <app-status-badge-pendency [value]="row.status" [statusDescription]="row.statusDescription">
+        </app-status-badge-pendency>
+      </mat-cell>
+      <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="action">
+      <mat-header-cell *matHeaderCellDef> Ação </mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <button mat-icon-button mat-sm-button type="button" (click)="edit(row)" matTooltip="Editar">
+          <i class="fas fa-pen fa-lg text-black"></i></button>
+      </mat-cell>
+      <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    <!-- <mat-footer-row *matFooterRowDef="displayedColumnsLanch" [hidden]="loading"></mat-footer-row> -->
+  </mat-table>
+
+  <mat-card *ngIf="loading" class="w-100 d-flex justify-content-center table-loading">
+    <mat-spinner diameter="20"></mat-spinner>
+  </mat-card>
+
+  <mat-card *ngIf="!loading && dataSource.data.length <= 0" class="w-100 d-flex justify-content-start table-loading">
+    <small>Nenhum item encontrado.</small>
+  </mat-card>
+
+  <mat-paginator [hidden]="dataSource.data.length <= 0" class="mat-paginator-table"
+    [pageSize]="paginatorHelper.PageSize" [pageSizeOptions]="paginatorHelper.PageSizeOptions" showFirstLastButtons>
+  </mat-paginator>
+</div>

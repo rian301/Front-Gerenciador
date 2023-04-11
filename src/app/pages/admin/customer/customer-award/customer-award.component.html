@@ -1,0 +1,84 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6">
+            <h1 class="title-page d-flex flex-align-center pt-2">{{ data.id != null ? 'Editar ' : 'Novo ' }}prêmio</h1>
+        </div>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="save()" style="overflow-x: hidden">
+        <div class="row">
+            <input-validator class="col-md-6" [messages]="{ required: 'Campo obrigatório' }">
+                <mat-form-field appearance="outline">
+                    <mat-label>Data de envio</mat-label>
+                    <input matInput type="text" formControlName="dateSend" placeholder="Data de envio" [matDatepicker]="pickerSend" required />
+                    <mat-datepicker-toggle matSuffix [for]="pickerSend"> </mat-datepicker-toggle>
+                    <mat-datepicker #pickerSend color="primary" disabled="false" startView="month"> </mat-datepicker>
+                </mat-form-field>
+            </input-validator>
+
+            <input-validator class="col-md-6" [messages]="{ required: 'Campo obrigatório' }">
+                <mat-form-field appearance="outline">
+                    <mat-label>Data de recebimento</mat-label>
+                    <input matInput type="text" formControlName="dateReceiving" placeholder="Data de recebimento" [matDatepicker]="picker" />
+                    <mat-datepicker-toggle matSuffix [for]="picker"> </mat-datepicker-toggle>
+                    <mat-datepicker #picker color="primary" disabled="false" startView="month"> </mat-datepicker>
+                </mat-form-field>
+            </input-validator>
+
+            <mat-form-field class="col-md-6" appearance="outline">
+                <mat-label>Prêmio</mat-label>
+                <mat-select formControlName="awardId" (selectionChange)="awardSelect($event)" required>
+                    <mat-option *ngFor="let item of awards" [value]="item.id">{{ item.name }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <input-validator class="col-md-6" [messages]="{ required: 'Campo obrigatório' }">
+                <mat-form-field appearance="outline">
+                    <mat-label>Data de Devolução</mat-label>
+                    <input matInput type="text" formControlName="dateDevolution" placeholder="Data de Devolução" [matDatepicker]="picker1" />
+                    <mat-datepicker-toggle matSuffix [for]="picker1"> </mat-datepicker-toggle>
+                    <mat-datepicker #picker1 color="primary" disabled="false" startView="month"> </mat-datepicker>
+                </mat-form-field>
+            </input-validator>
+
+            <input-validator class="col-md-6" [messages]="{ required: 'Campo obrigatório' }">
+                <mat-form-field appearance="outline">
+                    <mat-label>Data de Reenvio</mat-label>
+                    <input matInput type="text" formControlName="dateResend" placeholder="Data de Reenvio" [matDatepicker]="picker2" />
+                    <mat-datepicker-toggle matSuffix [for]="picker2"> </mat-datepicker-toggle>
+                    <mat-datepicker #picker2 color="primary" disabled="false" startView="month"> </mat-datepicker>
+                </mat-form-field>
+            </input-validator>
+
+            <input-validator class="col-md-6" [messages]="{ required: 'Campo obrigatório' }">
+                <mat-form-field appearance="outline">
+                    <mat-label>Código de Rastreio</mat-label>
+                    <input matInput type="text" formControlName="code" placeholder="Código de Rastreio"/>
+                </mat-form-field>
+            </input-validator>
+
+            <input-validator class="col-md-12 pb-2">
+                <mat-form-field appearance="fill">
+                    <mat-label>Observação</mat-label>
+                    <textarea matInput #input formControlName="note" placeholder="Observação" [maxLength]="1000"></textarea>
+                    <mat-hint align="end">{{ input.value?.length || 0 }}/1000</mat-hint>
+                </mat-form-field>
+            </input-validator>
+
+            <div class="row col-12">
+                <div class="col-md-12 text-right">
+                    <button type="button" mat-stroked-button class="text-primary border-primary mr-3" (click)="cancel()">Cancelar</button>
+                    <button
+                        type="submit"
+                        [ngClass]="{ 'bg-disabled': loading }"
+                        [class.btnSpinner]="loading"
+                        mat-flat-button
+                        class="bg-primary text-white"
+                    >
+                        Salvar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,79 @@
+<div class="overflow-hidden" *ngIf="dataSource != null">
+
+  <div class="row">
+    <mat-form-field *ngIf="showSearch" class="col mb-n3" appearance="outline">
+      <mat-label>Pesquisar</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Pesquise por qualquer campo da tabela">
+    </mat-form-field>
+
+    <div *ngIf="canPrint" class="col-auto pt-2 mr-1 text-right">
+      <button mat-icon-button mat-sm-button type="button" (click)="imprimir()" matTooltip="Imprimir">
+        <mat-icon>print</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <mat-table style="max-height: 66vh;" [dataSource]="dataSource" matSort matSortActive="created" matSortDisableClear
+    [ngClass]="addClass" (matSortChange)="sortData($event)">
+    <ng-container [matColumnDef]="column" *ngFor="let column of columnsToDisplay; let i = index">
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="col" [ngClass]="{'col-action': canShowActions && column == 'Ações'}"
+        style="border: 1px solid #eee; border-bottom-color: transparent;"> {{column}} </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="col" style="border: 1px solid #eee; border-bottom-color: transparent;"
+        [attr.data-label]="column" [ngClass]="{'col-action': canShowActions && column == 'Ações'}">
+        <video class="frame" *ngIf="canShowVideo(element[getColumnName(i)])" controls
+          [src]="element[getColumnName(i)]"></video>
+        <img class="frame-img" *ngIf="canShowImage(element[getColumnName(i)])" [src]="element[getColumnName(i)]" />
+
+        <span
+          *ngIf="column != 'Status' && column != 'Permitido' && !canShowVideo(element[getColumnName(i)]) && !canShowImage(element[getColumnName(i)]) && !showId || !canActive && !canShowVideo(element[getColumnName(i)]) && !canShowImage(element[getColumnName(i)]) && !showId"
+          [attr.color]="setColor(element[getColumnName(i)])"
+          [innerHTML]="column == 'Status' ? (element[getColumnName(i)] | boolToStatus) : (element[getColumnName(i)] | boolToText)"></span>
+
+        <label class="pl-2" *ngIf="canActive && column == 'Permitido'">
+          <mat-slide-toggle [disabled]="checkDisabled" color="primary" [checked]="element[getColumnName(i)]"
+            (change)="emitirStatus(element)">
+          </mat-slide-toggle>
+        </label>
+
+        <div class="mt-n3 mt-lg-1 mr-sm-n3" *ngIf="canShowActions && column == 'Ações'">
+          <button *ngIf="canShowInit" mat-flat-button type="button" class="border border-primary text-primary"
+            (click)="iniciar(element)">Iniciar</button>
+
+          <button *ngIf="canShowCustomTextButton" mat-flat-button type="button"
+            class="border border-primary text-primary"
+            (click)="customTextButtonClick(element)">{{customTextButtonName}}</button>
+
+          <button *ngIf="!canShowInit && !canShowCustomTextButton" mat-icon-button mat-sm-button type="button"
+            (click)="editar(element)" [matTooltip]="useEyedIcon? 'Visualizar' : 'Editar'"
+            [matTooltipPosition]="'above'">
+            <i class="fas fa-pen fa-lg text-black" [class.fa-user-edit]="userEditIcon"
+              [class.fa-eye]="useEyedIcon"></i></button>
+
+          <button *ngIf="canChangePassword" #tooltip="matTooltip" matTooltip="Alterar senha"
+            [matTooltipPosition]="'above'" mat-icon-button mat-sm-button type="button"
+            (click)="alterarSenha(element)"><i class="fas fa-lock fa-lg text-black"></i></button>
+
+          <button *ngIf="canDelete" #tooltip="matTooltip" matTooltip="Remover" [matTooltipPosition]="'above'"
+            mat-icon-button mat-sm-button type="button" (click)="remover(element)"><i
+              class="fas fa-trash fa-lg text-black"></i></button>
+        </div>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="columnsToDisplay; sticky: true"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: columnsToDisplay;"></mat-row>
+  </mat-table>
+
+  <div *ngIf="loading" class="w-100 d-flex justify-content-center mt-3">
+    <mat-spinner diameter="20"></mat-spinner>
+  </div>
+
+  <div class="pl-1 pt-1 border-top" *ngIf="!loading && dataSource.filteredData.length == 0">
+    <small>Nenhum item encontrado.</small>
+  </div>
+
+  <mat-paginator #paginator [hidden]="length < 10" [length]="resultsLength"
+    [pageSize]="setPaginatorSize(paginator._pageSize)" [pageSizeOptions]="pageSizeOptions">
+  </mat-paginator>
+
+</div>

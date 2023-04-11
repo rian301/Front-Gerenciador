@@ -1,0 +1,22 @@
+export class MentoredCompanyModel {
+    id: number = null;
+    cnpj: number = null;
+    companyName: string = null;
+    mentoredId: number = null;
+    companyId: number = null;
+    zipCode: string = null;
+    street: string = null;
+    number: string = null;
+    complement: string = null;
+    district: string = null;
+    city: string = null;
+    state: string = null;
+    status: number = null;
+    statusDescription: string = null;
+    createdAt: Date = null;
+    subscriptionDate: Date = null;
+    note: string = null;
+    email: string = null;
+    instagram: string = null;
+    phone: string = null;
+}

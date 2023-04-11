@@ -1,0 +1,142 @@
+<div class="row">
+  <div class="col" style="align-self: center">
+    <h1 class="title-page d-flex flex-align-center">
+      {{ title }}
+    </h1>
+  </div>
+</div>
+
+<mat-card class="mb-3">
+  <div class="row">
+    <div class="col-md-3">
+      <ng-select
+        appearance="outline"
+        [items]="mentoreds"
+        bindLabel="text"
+        bindValue="id"
+        [(ngModel)]="filterMentoredValue"
+        (change)="searchFilter()"
+        placeholder="Nome"
+      >
+      </ng-select>
+    </div>
+    <div class="col-md-3">
+      <mat-form-field appearance="outline">
+        <mat-label>Situação</mat-label>
+        <mat-select
+          value=""
+          (selectionChange)="searchFilter()"
+          [(ngModel)]="filterStatus"
+        >
+          <mat-option value="">Todos</mat-option>
+          <mat-option *ngFor="let item of situations" [value]="item">{{
+            item
+          }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <!-- <div class="col-md-3">
+      <mat-form-field appearance="outline">
+        <mat-label>Vencimento do Contrato</mat-label>
+        <input
+            matInput
+            type="text"
+            formControlName="dateScheduled"
+            placeholder="Vencimento do Contrato"
+            [matDatepicker]="picker1"
+        />
+        <mat-datepicker-toggle matSuffix [for]="picker1"> </mat-datepicker-toggle>
+        <mat-datepicker #picker1 color="primary" disabled="false" startView="month" [startAt]="startDate"> </mat-datepicker>
+    </mat-form-field>
+    </div> -->
+    <div class="col text-right">
+      <app-table-export
+        [dataSource]="dataSource"
+        [columns]="columnsExport"
+        [columnsName]="columnsExportName"
+        [name]="title"
+      ></app-table-export>
+    </div>
+  </div>
+</mat-card>
+<mat-table
+  [dataSource]="dataSource"
+  matSort
+  matSortActive="id"
+  class="mat-elevation-z8"
+>
+  <ng-container matColumnDef="id">
+    <mat-header-cell mat-sort-header *matHeaderCellDef> ID </mat-header-cell>
+    <mat-cell *matCellDef="let row"> {{ row.id }} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="mentoredName">
+    <mat-header-cell mat-sort-header *matHeaderCellDef>
+      Mentorado
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row"> {{ row.mentoredName }} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="amountTotalContract">
+    <mat-header-cell mat-sort-header *matHeaderCellDef>
+      V. Total Contrato
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row"> R$ {{ row.amountTotalContract | number: '1.2-2' }} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="subscriptionDate">
+    <mat-header-cell mat-sort-header *matHeaderCellDef>
+      Início Contrato
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      {{ row.subscriptionDate | date: "dd/MM/yyyy" }}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="endSubscriptionDate">
+    <mat-header-cell mat-sort-header *matHeaderCellDef>
+      Vencimento Contrato
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      {{ row.endSubscriptionDate | date: "dd/MM/yyyy" }}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="paidDate">
+    <mat-header-cell mat-sort-header *matHeaderCellDef>
+      Pagamento
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      {{ row.paidDate | date: "dd/MM/yyyy HH:mm" }}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="status">
+    <mat-header-cell *matHeaderCellDef> Situação </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <app-status-badge-subscription
+        [value]="row.status"
+        [statusDescription]="row.statusDescription"
+      >
+      </app-status-badge-subscription>
+    </mat-cell>
+    <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumnsInvoices"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumnsInvoices"></mat-row>
+</mat-table>
+
+<mat-card
+  *ngIf="loading"
+  class="w-100 d-flex justify-content-center table-loading"
+>
+  <mat-spinner diameter="20"></mat-spinner>
+</mat-card>
+
+<mat-paginator
+  class="mat-paginator-table"
+  [pageSize]="paginatorHelper.PageSize"
+  [pageSizeOptions]="paginatorHelper.PageSizeOptions"
+  showFirstLastButtons
+></mat-paginator>

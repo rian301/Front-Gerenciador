@@ -1,0 +1,26 @@
+@import
+
+// CSS Bootstrap
+//"bootstrap/bootstrap-grid.scss", // soment grid system
+"bootstrap/bootstrap.scss", // All bootstrap styles
+
+// Default Material Angular Theme [https://material.angular.io/guide/theming-your-components]
+"material/material",
+
+// Font Awesome Free 5.6.3
+// "fontawesome/scss/fontawesome",
+
+"~@ng-select/ng-select/themes/material.theme.css",
+
+// Utils
+"mixins",
+"print",
+
+// App
+"root",
+"common",
+"form",
+"button",
+"custom"
+;
+

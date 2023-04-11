@@ -1,0 +1,61 @@
+<h4 class="title-page d-flex flex-align-center">Novo documento</h4>
+
+<form [formGroup]="form" (ngSubmit)="save()">
+    <mat-dialog-content>
+        <div class="row m-0 pt-3 mx-n4">
+            <input-validator class="col-md-12" [messages]="{ required: 'Campo obrigatório' }">
+                <mat-form-field appearance="outline">
+                    <mat-label>Tipo</mat-label>
+                    <mat-select formControlName="typeDoc">
+                        <mat-option *ngFor="let item of docTypes" [value]="item.type">
+                            {{ item.name }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </input-validator>
+
+            <input-validator class="col-md-12" [messages]="{ required: 'Campo obrigatório' }">
+                <mat-form-field appearance="outline">
+                    <mat-label>Empresa</mat-label>
+                    <mat-select formControlName="mentoredCompanyId">
+                        <mat-option *ngFor="let item of companies" [value]="item.id">
+                            {{ item.companyName }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </input-validator>
+
+            <input-validator class="col-md-12" [messages]="{ required: 'Campo obrigatório' }">
+                <!-- <mat-form-field appearance="outline">
+                    <mat-label>Selecione os arquivos .jpg, .png ou .pdf</mat-label>
+                    <ngx-mat-file-input #removableInput formControlName="files" [accept]="'.jpg, .jpeg, .png, .pdf'" multiple (change)="onChange($event.target.files)"> </ngx-mat-file-input>
+                    <mat-icon matSuffix>wallpaper</mat-icon>
+                </mat-form-field> -->
+                <mat-form-field color="accent">
+                    <ngx-mat-file-input #removableInput [multiple]="multiple" [accept]="'.jpg, .jpeg, .png, .pdf'" formControlName="files" placeholder="Load a file" (change)="onChange($event.target.files)"></ngx-mat-file-input>
+                </mat-form-field>
+            </input-validator>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions class="mr-n2" align="end">
+        <button type="button" mat-stroked-button mat-dialog-close class="text-primary border-primary">Cancelar</button>
+        <button type="submit" mat-flat-button class="bg-primary text-white" [disabled]="loading" [ngClass]="{ 'bg-disabled': loading }" [class.btnSpinner]="loading">Salvar</button>
+    </mat-dialog-actions>
+
+    <!-- <mat-card class="zone zone-value flex-column">
+        <div class="container">
+            <h3 mat-dialog-title>Import</h3>
+            <input type="file" (change)="onChange($event.target.files)" />
+
+                <div class="form">
+                    <mat-form-field color="accent">
+                        <ngx-mat-file-input #removableInput [multiple]="multiple" [accept]="accept" formControlName="fileName" placeholder="Load a file"></ngx-mat-file-input>
+                    </mat-form-field>
+                </div>
+                <div mat-dialog-actions>
+                    <button mat-button [type]="submit" [disabled]="!form.valid">Import</button>
+                    <button mat-button (click)="closeClick()" tabindex="-1">Cancel</button>
+                </div>
+        </div>
+    </mat-card> -->
+</form>

@@ -1,0 +1,100 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6">
+            <h1 class="title-page d-flex flex-align-center pt-2">
+                {{ title }}
+            </h1>
+        </div>
+    </div>
+
+    <mat-card>
+        <span *ngIf="id">
+            Status:
+            <app-status-badge-app [value]="form.controls.status.value" [statusDescription]="form.controls.statusDescription.value"></app-status-badge-app>
+        </span>
+        <form [formGroup]="form" (ngSubmit)="save()" style="overflow-x: hidden">
+            <div class="row pt-3">
+                <input-validator class="col-md-3" [messages]="{ required: 'Campo obrigatório' }">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Nome</mat-label>
+                        <input matInput type="text" formControlName="name" placeholder="Nome" required />
+                    </mat-form-field>
+                </input-validator>
+
+                <input-validator class="col-md-3" [messages]="{ required: 'Campo obrigatório' }">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Data Compra</mat-label>
+                        <input matInput type="text" formControlName="datePurchase" placeholder="Data Compra" [matDatepicker]="picker1" />
+                        <mat-datepicker-toggle matSuffix [for]="picker1"> </mat-datepicker-toggle>
+                        <mat-datepicker #picker1 color="primary" disabled="false" startView="month" [startAt]="startDate"> </mat-datepicker>
+                    </mat-form-field>
+                </input-validator>
+
+                <input-validator class="col-md-3" [messages]="{ required: 'Campo obrigatório' }">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Solicitante</mat-label>
+                        <input matInput type="text" formControlName="requester" placeholder="Solicitante" required />
+                    </mat-form-field>
+                </input-validator>
+
+                <input-validator class="col-md-2" [messages]="{ required: 'Campo obrigatório' }">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Valor</mat-label>
+                        <input matInput type="text" formControlName="value" placeholder="Valor R$" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',', align: 'left' }" />
+                    </mat-form-field>
+                </input-validator>
+
+                <input-validator class="col-md-3" [messages]="{ required: 'Campo obrigatório' }">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Assinatura / Período</mat-label>
+                        <input matInput type="text" formControlName="signature" placeholder="Assinatura / Período" />
+                    </mat-form-field>
+                </input-validator>
+
+                <input-validator class="col-md-3" [messages]="{ required: 'Campo obrigatório' }">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Descrição</mat-label>
+                        <input matInput type="text" formControlName="description" placeholder="Descrição" />
+                    </mat-form-field>
+                </input-validator>
+
+                <input-validator class="col-md-3" [messages]="{ required: 'Campo obrigatório' }">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Setor de uso / Responsável</mat-label>
+                        <input matInput type="text" formControlName="responsible" placeholder="Setor de uso / Responsável" required />
+                    </mat-form-field>
+                </input-validator>
+
+                <input-validator class="col-md-3" [messages]="{ required: 'Campo obrigatório' }">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Data Cancelamento</mat-label>
+                        <input matInput type="text" formControlName="dateCanceled" placeholder="Data Cancelamento" [matDatepicker]="picker2" />
+                        <mat-datepicker-toggle matSuffix [for]="picker2"> </mat-datepicker-toggle>
+                        <mat-datepicker #picker2 color="primary" disabled="false" startView="month" [startAt]="startDate"> </mat-datepicker>
+                    </mat-form-field>
+                </input-validator>
+
+                <input-validator class="col-md-3" [messages]="{ required: 'Campo obrigatório' }">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Motivo do cancelamento</mat-label>
+                        <input matInput type="text" formControlName="signature" placeholder="Motivo do cancelamento" [required]="form.controls.dateCanceled.value != null" />
+                    </mat-form-field>
+                </input-validator>
+
+                <input-validator class="col-md-12 pb-2">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Observação</mat-label>
+                        <textarea matInput #input formControlName="note" placeholder="Observação" [maxLength]="1000"></textarea>
+                        <mat-hint align="end">{{ input.value?.length || 0 }}/1000</mat-hint>
+                    </mat-form-field>
+                </input-validator>
+            </div>
+            <div class="row col-12">
+                <div class="col-md-12 text-right">
+                    <button type="button" mat-stroked-button class="text-primary border-primary mr-3" (click)="cancel()">Cancelar</button>
+                    <button type="submit" [ngClass]="{ 'bg-disabled': loading || form.invalid }" [class.btnSpinner]="loading" mat-flat-button class="bg-primary text-white">Salvar</button>
+                </div>
+            </div>
+        </form>
+    </mat-card>
+</div>

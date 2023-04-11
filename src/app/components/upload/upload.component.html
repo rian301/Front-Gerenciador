@@ -1,0 +1,39 @@
+<button type="button" #hackButton class="d-none"></button>
+<input #fileInput id="fileInput" type="file" accept="{{canVideo? 'image/*, video/*' : 'image/*'}}" (change)="addFile($event)"
+  style="display: none;" />
+
+<div class="imagem" style="cursor: pointer;">
+  <div class="upload-toggle-pai">
+    <video *ngIf="url && ehVideo" class="default-card" [class.isCircle]="isCircle" [style.height.px]="size" [style.width.px]="size" controls [src]="url"></video>
+
+    <div *ngIf="url && !ehVideo" [ngStyle]="{'background-image': 'url(' + url + ')'}" class="default-card"
+      [style.height.px]="size" [style.width.px]="size" [class.isCircle]="isCircle" >
+    </div>
+
+    <div *ngIf="!url" (click)="openFile()" class="upload d-flex justify-content-center align-items-center"
+      [style.height.px]="size" [style.width.px]="size" [class.isCircle]="isCircle" >
+      <mat-icon style="color: #ccc; width: auto; height: auto;" [style.font-size.px]="size*.3">
+        {{icon}}
+      </mat-icon>
+    </div>
+
+    <div *ngIf="url" class="upload-toggle d-flex justify-content-center align-items-center" (click)="changeFile(); temOpacidade= true;"
+      [ngClass]="{'opacity-1': temOpacidade}" [class.dif-h]="isCircle">
+      <mat-icon style="color: gray; width: auto; height: auto;">
+        insert_photo
+      </mat-icon>
+    </div>
+  </div>
+
+  <button mat-button type="button" #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="menu"
+    style="opacity: 0; position: absolute; top: 0; left: 0; z-index: -1; margin-top: 20px;">Menu</button>
+
+  <mat-menu #menu="matMenu" (close)="temOpacidade= false;">
+    <a mat-menu-item (click)="openFile(); temOpacidade= false;">
+      <i class="pe-7s-refresh-2 fa-lg"></i> Alterar
+    </a>
+    <a mat-menu-item (click)="removeFile(); temOpacidade= false;">
+      <i class="pe-7s-trash fa-lg"></i> Remover
+    </a>
+  </mat-menu>
+</div>

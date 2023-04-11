@@ -1,0 +1,117 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col" style="align-self: center">
+            <h1 class="title-page d-flex flex-align-center">Colaboradores</h1>
+        </div>
+        <div class="col text-right">
+            <button type="button" mat-stroked-button class="text-primary border-primary my-2" (click)="new()">Novo</button>
+        </div>
+    </div>
+
+    <mat-card>
+        <div class="row mb-n3">
+            <div class="col mr-n3">
+              <ng-select
+              appearance="outline"
+              [items]="employees"
+              bindLabel="text"
+              bindValue="id"
+              [(ngModel)]="filterEmployeeValue"
+              (change)="searchFilter()"
+              placeholder="Nome"
+              [ngModelOptions]="{standalone: true}"
+            >
+            </ng-select>
+            </div>
+            <div class="col col-lg-3">
+              <ng-select
+              appearance="outline"
+              [items]="situations"
+              bindLabel="text"
+              bindValue="id"
+              [(ngModel)]="filterStatus"
+              (change)="searchFilter()"
+              placeholder="Status"
+              [ngModelOptions]="{standalone: true}"
+            >
+            </ng-select>
+            </div>
+
+            <div class="col col-lg-3">
+              <ng-select
+              appearance="outline"
+              [items]="types"
+              bindLabel="text"
+              bindValue="id"
+              [(ngModel)]="filterType"
+              (change)="searchFilter()"
+              placeholder="Tipo"
+              [ngModelOptions]="{standalone: true}"
+            >
+            </ng-select>
+            </div>
+
+            <div class="col text-right" [hidden]="dataSource.data.length <= 1">
+              <app-table-export
+                [dataSource]="dataSource"
+                [columns]="columnsExport"
+                [columnsName]="columnsExportName"
+                [name]="title"
+              ></app-table-export>
+            </div>
+        </div>
+    </mat-card>
+
+    <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+        <ng-container matColumnDef="name">
+            <mat-header-cell mat-sort-header *matHeaderCellDef> Nome </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{ row.name }} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="email">
+            <mat-header-cell mat-sort-header *matHeaderCellDef> E-mail </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{ row.email }} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="typeDescription">
+            <mat-header-cell mat-sort-header *matHeaderCellDef> Tipo </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{ row.typeDescription }} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+          <mat-header-cell *matHeaderCellDef> Situação </mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            <app-status-badge-status
+              [value]="row.status"
+              [statusDescription]="row.statusDescription"
+            >
+            </app-status-badge-status>
+          </mat-cell>
+          <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="action">
+            <mat-header-cell *matHeaderCellDef> Ação </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+                <button mat-icon-button mat-sm-button type="button" (click)="edit(row)" [matTooltip]="editLabel">
+                    <i class="fas fa-pen fa-lg text-black"></i>
+                </button>
+            </mat-cell>
+            <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+        <!-- <mat-footer-row *matFooterRowDef="displayedColumnsLanch" [hidden]="loading"></mat-footer-row> -->
+    </mat-table>
+
+    <mat-card *ngIf="loading" class="w-100 d-flex justify-content-center table-loading">
+        <mat-spinner diameter="20"></mat-spinner>
+    </mat-card>
+
+    <mat-card *ngIf="!loading && dataSource.data.length <= 0" class="w-100 d-flex justify-content-start table-loading">
+        <small>Nenhum item encontrado.</small>
+    </mat-card>
+
+    <mat-paginator class="mat-paginator-table" [length]="resultsLength" [pageSize]="paginatorHelper.PageSize" [pageSizeOptions]="paginatorHelper.PageSizeOptions" showFirstLastButtons> </mat-paginator>
+</div>

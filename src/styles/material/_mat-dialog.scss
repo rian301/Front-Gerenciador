@@ -1,0 +1,11 @@
+.mat-dialog-container {
+    // padding: 24px 24px !important;
+    
+    .mat-dialog-title {
+        text-transform: uppercase;
+        color: $gray-800;
+        font-family: $font-family;
+        font-size: 17px;
+        font-weight: bold;
+    }
+}

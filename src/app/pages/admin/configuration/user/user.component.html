@@ -1,0 +1,106 @@
+<h3 class="title-page d-flex flex-align-center">
+  {{data != null ? 'Editar ': 'Novo '}}usuário
+</h3>
+
+<form [formGroup]="form" (ngSubmit)="salvar()">
+  <mat-dialog-content>
+    <div class="row m-0 p-0 mx-n4">
+      <input hidden formControlName="id">
+
+      <input-validator class="col-md-6" [messages]="{required: 'Campo obrigatório'}">
+        <mat-form-field appearance="outline">
+          <mat-label>Nome</mat-label>
+          <input matInput type="text" formControlName="name" placeholder="Nome" required cdkFocusInitial>
+        </mat-form-field>
+      </input-validator>
+
+      <input-validator class="col-md-6" [messages]="{required: 'Campo obrigatório'}">
+        <mat-form-field appearance="outline">
+          <mat-label>E-mail</mat-label>
+          <input matInput type="text" formControlName="email" placeholder="E-mail" required>
+        </mat-form-field>
+      </input-validator>
+
+      <input-validator class="col-md-6" [messages]="{required: 'Campo obrigatório'}">
+        <mat-form-field appearance="outline">
+          <mat-label>Perfil</mat-label>
+          <mat-select formControlName="userProfileId">
+            <mat-option *ngFor="let perfil of perfis" [value]="perfil.id">
+              {{perfil.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </input-validator> 
+      
+      <div class="col-md-6">
+        <div class="row pt-3">
+          <div class="col-auto">
+            <mat-slide-toggle formControlName="active"></mat-slide-toggle>
+          </div>
+          <div class="col-auto">
+            Status {{form.controls.active.value ? ' Ativo' : ' Inativo'}}
+          </div>
+        </div>
+      </div>      
+
+      <input-validator *ngIf="data == null" class="col-md-6" [messages]="{required: 'Campo obrigatório'}">
+        <mat-form-field appearance="outline">
+          <mat-label>Senha</mat-label>
+          <input matInput type="password" formControlName="password" placeholder="Senha" autocomplete="off"
+            (input)="passwordChecker()" required>
+        </mat-form-field>
+      </input-validator>
+
+      <input-validator *ngIf="data == null" class="col-md-6" [messages]="{required: 'Campo obrigatório'}">
+        <mat-form-field appearance="outline">
+          <mat-label>Confirmar Senha</mat-label>
+          <input matInput type="password" formControlName="confirmPassword" placeholder="Confirmar Senha" required>
+        </mat-form-field>
+      </input-validator>
+
+      <div class="col-6" *ngIf="data == null">
+        <!-- <div class="row">
+          <div class="col-auto">
+            <i class="material-icons"
+              [ngClass]="hasUpperCase ? 'text-success' : 'text-danger'">{{hasUpperCase ? 'check_circle_outline': 'highlight_off'}}</i>
+          </div>
+          <div class="col pl-0">
+            <p>Ter letras miusculas e minusculas</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-auto">
+            <i class="material-icons"
+              [ngClass]="hasNumber ? 'text-success' : 'text-danger'">{{hasNumber ? 'check_circle_outline': 'highlight_off'}}</i>
+          </div>
+          <div class="col pl-0">
+            <p>Ter numeros</p>
+          </div>
+        </div> -->
+        <div class="row">
+          <div class="col-auto">
+            <i class="material-icons"
+              [ngClass]="hasMinCharacters ? 'text-success' : 'text-danger'">{{hasMinCharacters ? 'check_circle_outline': 'highlight_off'}}</i>
+          </div>
+          <div class="col pl-0">
+            <p>Minimo de {{minCharacter}} caracteres</p>
+          </div>
+        </div>
+        <!-- <div class="row">
+          <div class="col-auto">
+            <i class="material-icons"
+              [ngClass]="hasSpecial ? 'text-success' : 'text-danger'">{{hasSpecial ? 'check_circle_outline': 'highlight_off'}}</i>
+          </div>
+          <div class="col pl-0">
+            <p>Ter caracteres especiais</p>
+          </div>
+        </div> -->
+      </div>
+
+    </div>    
+  </mat-dialog-content>
+  <mat-dialog-actions class="mb-1 mr-n2" align="end">
+    <button type="submit" mat-flat-button class="bg-primary text-white">Salvar</button>
+    <button type="button" mat-stroked-button mat-dialog-close class="text-primary border-primary">Cancelar</button>
+  </mat-dialog-actions>
+</form>

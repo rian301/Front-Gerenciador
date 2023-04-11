@@ -1,0 +1,44 @@
+<div class="container-fluid">
+  <div class="col" style="align-self: center">
+    <h1 class="title-page d-flex flex-align-center">
+      {{ title }}
+    </h1>
+  </div>
+  <mat-card>
+    <div class="row" [formGroup]="form">
+      <mat-form-field class="col-md-3" appearance="outline">
+        <mat-label>Período</mat-label>
+        <mat-date-range-input [rangePicker]="rangePicker">
+          <input matStartDate placeholder="Data Inicial" formControlName="datInit" />
+          <input matEndDate placeholder="Data Final" formControlName="datEnd" />
+        </mat-date-range-input>
+        <mat-datepicker-toggle matSuffix [for]="rangePicker"></mat-datepicker-toggle>
+        <mat-date-range-picker #rangePicker></mat-date-range-picker>
+      </mat-form-field>
+
+      <mat-form-field class="col-md-2" appearance="outline">
+        <mat-label>Tipo de Relatório</mat-label>
+        <mat-select formControlName="typeReport" (selectionChange)="typeSelect($event.value)" required>
+          <mat-option *ngFor="let item of types" [value]="item.type">{{
+            item.name
+            }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <div class="col-md-5">
+        <ng-select appearance="outline" [items]="categories" bindLabel="name" bindValue="id"
+          formControlName="categories" placeholder="Categoria" multiple="true" [required]="isRequired">
+        </ng-select>
+      </div>
+
+      <div class="col">
+        <button type="submit"
+          [ngClass]="{ 'bg-disabled': loading || isRequired && form.controls.categories.value == null}"
+          [disabled]="isRequired && form.controls.categories.value == null" [class.btnSpinner]="loading" mat-flat-button
+          class="bg-primary text-white btn" (click)="reportExpense()">
+          Gerar Relatório
+        </button>
+      </div>
+    </div>
+  </mat-card>
+</div>

@@ -1,0 +1,467 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <h1 class="title-page d-flex flex-align-center">
+                {{title}}
+            </h1>
+        </div>
+    </div>
+    <mat-card>
+      <div class="row" *ngIf="id != null">
+        <div class="col-md-6 pt-2">
+            Status:
+            <app-status-badge-mentored
+                [value]="form.controls.status.value"
+                [statusDescription]="form.controls.statusDescription.value"
+            ></app-status-badge-mentored>
+        </div>
+        <div class="col-md-6 text-right">
+            <button
+                *ngIf="form.controls.status.value != mentoredEnum.Active"
+                type="button"
+                mat-stroked-button
+                class="text-white border-success bg-success mr-3"
+                (click)="statusChange(mentoredEnum.Active)"
+            >
+                <mat-icon>done</mat-icon>Ativar
+            </button>
+            <button
+                *ngIf="form.controls.status.value != mentoredEnum.Inactive"
+                type="button"
+                mat-stroked-button
+                class="text-white border-danger bg-danger mr-3"
+                (click)="statusChange(mentoredEnum.Inactive)"
+            >
+                <mat-icon>close</mat-icon>Inativar
+            </button>
+        </div>
+    </div>
+
+        <mat-tab-group mat-align-tabs="start">
+            <mat-tab label="Dados Pessoais">
+                <form [formGroup]="form" (ngSubmit)="save()" style="overflow-x: hidden;">
+                    <div class="row">
+                        <div class="col-12">
+                            <p class="p-title">Dados pessoais</p>
+                        </div>
+
+                        <input-validator class="col-md-6" [messages]="{required: 'Campo obrigatório'}">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Nome completo</mat-label>
+                                <input matInput type="text" formControlName="name" placeholder="Nome"
+                                    cdkFocusInitial required>
+                            </mat-form-field>
+                        </input-validator>
+
+                        <input-validator class="col-md-6" [messages]="{required: 'Campo obrigatório'}">
+                            <mat-form-field appearance="outline">
+                                <mat-label>E-mail</mat-label>
+                                <input matInput type="text" formControlName="email" placeholder="E-mail">
+                            </mat-form-field>
+                        </input-validator>
+
+                        <input-validator class="col-md-3" [messages]="{required: 'Campo obrigatório'}">
+                            <mat-form-field appearance="outline">
+                                <mat-label>CPF</mat-label>
+                                <input matInput type="text" formControlName="cpf" placeholder="CPF"
+                                    mask="000.000.000-00">
+                            </mat-form-field>
+                        </input-validator>
+
+                        <input-validator class="col-md-3" [messages]="{required: 'Campo obrigatório'}">
+                            <mat-form-field appearance="outline">
+                                <mat-label>RG</mat-label>
+                                <input matInput type="text" formControlName="rg" placeholder="RG">
+                            </mat-form-field>
+                        </input-validator>
+
+                        <input-validator class="col-md-3" [messages]="{required: 'Campo obrigatório'}">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Celular</mat-label>
+                                <input matInput type="text" formControlName="phoneNumber" placeholder="Celular">
+                            </mat-form-field>
+                        </input-validator>
+
+                        <input-validator class="col-md-3" [messages]="{required: 'Campo obrigatório'}">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Data de nascimento</mat-label>
+                                <input matInput type="text" formControlName="birthDate" placeholder="Data de nascimento"
+                                    [matDatepicker]="picker">
+                                <mat-datepicker-toggle matSuffix [for]="picker">
+                                </mat-datepicker-toggle>
+                                <mat-datepicker #picker color="primary" disabled="false" startView="multi-year"
+                                    [startAt]="startDate">
+                                </mat-datepicker>
+                            </mat-form-field>
+                        </input-validator>
+
+                        <input-validator class="col-md-3" [messages]="{required: 'Campo obrigatório'}">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Instagram</mat-label>
+                                <input matInput type="text" formControlName="instagram" placeholder="Instagram">
+                            </mat-form-field>
+                        </input-validator>
+
+                        <!-- <input-validator class="col-md-3" [messages]="{required: 'Campo obrigatório'}">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Sócio</mat-label>
+                                <input matInput type="text" formControlName="partnerName" placeholder="Nome do Sócio">
+                            </mat-form-field>
+                        </input-validator> -->
+
+                        <input-validator class="col-md-3" [messages]="{required: 'Campo obrigatório'}">
+                            <ng-select appearance="outline" [items]="mentoreds" [multiple]="true" bindLabel="name"
+                                bindValue="id" formControlName="partners" placeholder="Sócio" multiple>
+                            </ng-select>
+                        </input-validator>
+
+                        <input-validator class="col-md-3 mb-1 d-flex align-items-center" [messages]="{required: 'Campo obrigatório'}">
+                            <mat-checkbox formControlName="isPartner">É sócio</mat-checkbox>
+                        </input-validator>
+
+                        <div class="col-12">
+                            <p class="p-title">Endereço</p>
+                        </div>
+
+                        <input-validator class="col-md-3" [messages]="{required: 'Campo obrigatório'}">
+                            <mat-form-field appearance="outline">
+                                <mat-label>CEP</mat-label>
+                                <input (keyup)="searchCep($event)" matInput type="text" formControlName="zipCode"
+                                    placeholder="CEP">
+                            </mat-form-field>
+                        </input-validator>
+                        <div class="offset-6"></div>
+
+                        <input-validator class="col-md-6" [messages]="{required: 'Campo obrigatório'}">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Endereço</mat-label>
+                                <input matInput type="text" formControlName="street" placeholder="Endereço">
+                            </mat-form-field>
+                        </input-validator>
+
+                        <input-validator class="col-md-3" [messages]="{required: 'Campo obrigatório'}">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Número</mat-label>
+                                <input matInput type="text" formControlName="number" placeholder="Número">
+                            </mat-form-field>
+                        </input-validator>
+
+                        <mat-form-field class="col-md-6" appearance="outline">
+                            <mat-label>Complemento</mat-label>
+                            <input matInput type="text" formControlName="complement" placeholder="Complemento">
+                        </mat-form-field>
+
+                        <input-validator class="col-md-6" [messages]="{required: 'Campo obrigatório'}">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Bairro</mat-label>
+                                <input matInput type="text" formControlName="district" placeholder="Bairro">
+                            </mat-form-field>
+                        </input-validator>
+
+                        <input-validator class="col-md-6" [messages]="{required: 'Campo obrigatório'}">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Cidade</mat-label>
+                                <input matInput type="text" formControlName="city" placeholder="Cidade">
+                            </mat-form-field>
+                        </input-validator>
+
+                        <input-validator class="col-md-2" [messages]="{required: 'Campo obrigatório'}">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Estado</mat-label>
+                                <input matInput type="text" formControlName="state" placeholder="Estado" maxlength="2"
+                                    >
+                            </mat-form-field>
+                        </input-validator>
+
+                        <input-validator class="col-md-12 pb-2">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Observação</mat-label>
+                                <textarea matInput #input formControlName="note" placeholder="Observação"
+                                    [maxLength]="1000"></textarea>
+                                <mat-hint align="end">{{input.value?.length || 0}}/1000</mat-hint>
+                            </mat-form-field>
+                        </input-validator>
+
+                        <div class="row col-12">
+                            <div class="col-md-6 pt-3 log-register">
+                                <p *ngIf="form.controls.createdAt.value != null">
+                                    Cadastrado em {{form.controls.createdAt.value | date: 'dd/MM/yyyy HH:mm:ss'}}
+                                </p>
+                            </div>
+                            <div class="col-md-6 text-right">
+                                <button type="button" mat-stroked-button class="text-primary border-primary mr-3"
+                                    (click)="cancel()">Cancelar</button>
+                                <button type="submit" [ngClass]="{'bg-disabled': loading}" [class.btnSpinner]="loading"
+                                    mat-flat-button class="bg-primary text-white">Salvar</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            </mat-tab>
+            <mat-tab label="Empresa" *ngIf="!hidenTabs">
+                <div class="py-3">
+                    <button mat-stroked-button type="button" class="border-primary text-primary"
+                        (click)="newMentoredCompany()">Nova
+                        empresa</button>
+                </div>
+                <mat-table [dataSource]="dataSource" matSort matSortActive="id" matSortDirection="desc"
+                    class="mat-elevation-z8">
+
+                    <ng-container matColumnDef="companyName">
+                        <mat-header-cell mat-sort-header *matHeaderCellDef> Nome </mat-header-cell>
+                        <mat-cell *matCellDef="let row"> {{row.companyName}} </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="cnpj">
+                        <mat-header-cell mat-sort-header *matHeaderCellDef> CNPJ </mat-header-cell>
+                        <mat-cell *matCellDef="let row"> {{row.cnpj | mask: '00.000.000/0000-00' }} </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="action">
+                        <mat-header-cell *matHeaderCellDef> Ação </mat-header-cell>
+                        <mat-cell *matCellDef="let row">
+                            <button mat-icon-button mat-sm-button type="button" (click)="editMentoredCompany(row)"
+                                matTooltip="Editar">
+                                <i class="fas fa-pen fa-lg text-black"></i></button>
+                        </mat-cell>
+                        <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+                    </ng-container>
+
+                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                </mat-table>
+            </mat-tab>
+            <mat-tab label="Pagamentos" *ngIf="!hidenTabs && !form.value.isPartner">
+                <div style="overflow-x: hidden;">
+                    <div class="row mt-2">
+                        <div class="col-auto ml-auto pt-2">
+                            <button mat-stroked-button type="button" class="border-primary text-primary"
+                                (click)="newMentoreSubscription()">Novo
+                                pagamento</button>
+                        </div>
+                    </div>
+                    <mat-table [dataSource]="dataSourceSub">
+                        <ng-container matColumnDef="subscriptionDate">
+                            <mat-header-cell *matHeaderCellDef> Data inscrição </mat-header-cell>
+                            <mat-cell *matCellDef="let row"> {{row.subscriptionDate | date:'dd/MM/yyyy'}} </mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="productName">
+                            <mat-header-cell *matHeaderCellDef> Produto </mat-header-cell>
+                            <mat-cell *matCellDef="let row"> {{row.productName}} </mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="installments">
+                            <mat-header-cell *matHeaderCellDef> Dividido em </mat-header-cell>
+                            <mat-cell *matCellDef="let row"> {{row.installments}}x </mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="status">
+                            <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
+                            <mat-cell *matCellDef="let row">
+                                <app-status-badge-subscription [value]="row.status"
+                                    [statusDescription]="row.statusDescription">
+                                </app-status-badge-subscription>
+                            </mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="action">
+                            <mat-header-cell *matHeaderCellDef> Ação </mat-header-cell>
+                            <mat-cell *matCellDef="let row">
+                                <button mat-icon-button mat-sm-button type="button"
+                                    (click)="editMentoredSubscription(row)" matTooltip="Editar">
+                                    <i class="fas fa-pen fa-lg text-black"></i></button>
+                            </mat-cell>
+                            <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+                        </ng-container>
+
+                        <mat-header-row *matHeaderRowDef="displayedColumnsSubscription"></mat-header-row>
+                        <mat-row *matRowDef="let row; columns: displayedColumnsSubscription;"></mat-row>
+                    </mat-table>
+                    <mat-card *ngIf="loading" class="w-100 d-flex justify-content-center table-loading">
+                        <mat-spinner diameter="20"></mat-spinner>
+                    </mat-card>
+
+                    <mat-card *ngIf="!loading && dataSourceSub.data.length <= 0"
+                        class="w-100 d-flex justify-content-start table-loading">
+                        <small>Nenhum item encontrado.</small>
+                    </mat-card>
+
+                    <mat-paginator [hidden]="dataSourceSub.data.length <= 0" class="mat-paginator-table"
+                        [pageSize]="paginatorHelper.PageSize" [pageSizeOptions]="paginatorHelper.PageSizeOptions"
+                        showFirstLastButtons>
+                    </mat-paginator>
+                </div>
+            </mat-tab>
+            <mat-tab label="Documentos" *ngIf="!hidenTabs">
+                <div style="overflow-x: hidden;">
+                    <div class="row mt-2">
+                        <div class="col-md-6">
+                            <mat-form-field class="col-4" appearance="outline">
+                                <mat-label>Status</mat-label>
+                                <mat-select [(ngModel)]="statusDocFilter" (selectionChange)="changeStatusDocFilter()">
+                                    <mat-option [value]="0">Todos</mat-option>
+                                    <mat-option [value]="1">Ativo</mat-option>
+                                    <mat-option [value]="2">Inativo</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-auto ml-auto pt-2">
+                            <button mat-stroked-button type="button" class="border-primary text-primary"
+                                (click)="newDoc()">Novo
+                                documento</button>
+                        </div>
+                    </div>
+                    <mat-table cdkDropList
+                    #table
+                    #list="cdkDropList"
+                    [dataSource]="dataSourceDocs"
+                    [cdkDropListData]="dataSourceDocs.data"
+                    (cdkDropListDropped)="onListDrop($event)"
+                    class="mat-elevation-z8">
+
+                        <ng-container matColumnDef="document">
+                            <mat-header-cell *matHeaderCellDef> Tipo de Documento </mat-header-cell>
+                            <mat-cell *matCellDef="let row"> {{row.typeDocDescription}} </mat-cell>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="fileName">
+                            <mat-header-cell *matHeaderCellDef> Nome </mat-header-cell>
+                            <mat-cell *matCellDef="let row"> {{row.fileName}} </mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="actions">
+                            <mat-header-cell *matHeaderCellDef> Arquivo / Url </mat-header-cell>
+                            <mat-cell *matCellDef="let row">
+                                <button *ngIf="row?.urlVideo == null || row?.urlVideo == undefined" mat-icon-button
+                                    mat-sm-button color="primary" class="mr-1" matTooltip="Baixar o documento"
+                                    (click)="downloadDoc(row)">
+                                    <mat-icon>file_download</mat-icon>
+                                </button>
+                                <div *ngIf="row?.urlVideo != null && row?.urlVideo != undefined">
+                                    {{row?.urlVideo}}
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="upload">
+                            <mat-header-cell *matHeaderCellDef> Enviado em </mat-header-cell>
+                            <mat-cell *matCellDef="let row"> {{row?.createdAt | date: 'dd/MM/yyyy HH:mm'}} </mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="status">
+                            <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
+                            <mat-cell *matCellDef="let row">
+                                <span class="badge badge-status" [ngClass]="{'bg-success': row?.active === true,
+                                                                   'bg-light text-dark': row?.active === false}">
+                                    {{row?.active ? "Ativo" : "Inativo"}}
+                                </span>
+                            </mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="action">
+                            <mat-header-cell *matHeaderCellDef> Ação </mat-header-cell>
+                            <mat-cell *matCellDef="let row">
+                                <button mat-icon-button mat-sm-button type="button"
+                                    (click)="modalConfirmationChabgeStatus(row)"
+                                    matTooltip="{{row?.active ? 'Inativar' : 'Ativar'}}">
+                                    <i class="material-icons" [ngClass]="{'text-danger': row?.active === true,
+                                'text-success text-dark': row?.active === false}">{{row?.active ? "clear" :
+                                        "done"}}</i>
+                                </button>
+                            </mat-cell>
+                            <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+                        </ng-container>
+
+                        <mat-header-row *matHeaderRowDef="displayedColumnsDoc"></mat-header-row>
+                        <mat-row *matRowDef="let row; columns: displayedColumnsDoc;"></mat-row>
+                        <!-- cdkDrag -->
+                    </mat-table>
+                </div>
+            </mat-tab>
+            <mat-tab label="Premiações" *ngIf="!hidenTabs">
+                <button
+                  type="button"
+                  mat-stroked-button
+                  class="text-primary border-primary my-2"
+                  (click)="newAward()"
+                >
+                  Novo Prêmio
+                </button>
+                <mat-table
+                  [dataSource]="dataSourceAward"
+                  matSort
+                  matSortActive="id"
+                  matSortDirection="desc"
+                  class="mat-elevation-z8"
+                >
+                  <ng-container matColumnDef="id">
+                    <mat-header-cell mat-sort-header *matHeaderCellDef>
+                      ID
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row"> {{ row.id }} </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="name">
+                    <mat-header-cell mat-sort-header *matHeaderCellDef>
+                      Nome
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row">{{ row.name }} </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="dateSend">
+                    <mat-header-cell mat-sort-header *matHeaderCellDef>
+                      Envio
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                      {{ row.dateSend | date: "dd/MM/yyyy" }}
+                    </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="dateReceiving">
+                    <mat-header-cell mat-sort-header *matHeaderCellDef>
+                      Recebimento
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                      {{ row.dateReceiving | date: "dd/MM/yyyy" }}
+                    </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="action">
+                    <mat-header-cell *matHeaderCellDef> Ação </mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                      <button
+                        mat-icon-button
+                        mat-sm-button
+                        type="button"
+                        (click)="editAward(row)"
+                        matTooltip="Editar"
+                      >
+                        <i
+                          class="fas fa-pen fa-lg text-black mr-5"
+                        ></i>
+                      </button>
+                      <button
+                        class="ml-2 btn-del mr-2"
+                        mat-icon-button
+                        mat-sm-button
+                        type="button"
+                        matTooltip="Remover"
+                      >
+                        <mat-icon>delete</mat-icon>
+                      </button>
+                    </mat-cell>
+                    <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+                  </ng-container>
+
+                  <mat-header-row
+                    *matHeaderRowDef="displayedColumnsAward"
+                  ></mat-header-row>
+                  <mat-row *matRowDef="let row; columns: displayedColumnsAward"></mat-row>
+                </mat-table>
+              </mat-tab>
+        </mat-tab-group>
+    </mat-card>
+</div>

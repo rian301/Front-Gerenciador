@@ -1,0 +1,49 @@
+<footer [ngClass]="{'bg-admin': isAdminPage}">
+    <div class="container-fluid">
+        <div class="d-flex flex-wrap" [ngClass]="{'align-items-center': isAdminPage}">
+            <div class="col" [ngClass]="{'d-flex justify-content-center': isAdminPage}">
+                <div class="form-group">
+                    <a href="https://www.apple.com/br/ios/app-store/" target="_blank" mat-button>
+                        <img src="assets/images/footer/btn_apple_store.png" alt="Apple Store">
+                    </a>
+                </div>
+                <div class="form-group">
+                    <a href="https://play.google.com/store" target="_blank" mat-button>
+                        <img src="assets/images/footer/btn_google_play.png" alt="Google Play">
+                    </a>
+                </div>
+            </div>
+            <div class="col" *ngIf="!isAdminPage">
+                <ul class="list-unstyled">
+                    <li><a class="text-white" href="">Termos e condições de uso</a></li>
+                    <li><a class="text-white" href="">Política de privacidade</a></li>
+                </ul>
+            </div>
+            <div class="col" *ngIf="!isAdminPage">
+                <ul class="list-unstyled">
+                    <li *ngFor="let item of menuItems">
+                        <a class="text-white" [attr.href]="item.url">{{item.name}}</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col" [ngClass]="{'d-flex justify-content-center': isAdminPage}">
+                <ul class="list-unstyled">
+                    <li class="text-white">Fale conosco</li>
+                    <li><a class="text-white" href="mailto:contato@contato.com.br">contato@contato.com.br</a></li>
+                </ul>
+            </div>
+            <div class="col" [ngClass]="{'d-flex flex-column align-items-center': isAdminPage}">
+                <ul class="list-unstyled">
+                    <li class="text-white">Siga-nos</li>
+                </ul>
+                <ul class="list-inline">
+                    <li class="list-inline-item" *ngFor="let item of socialItems">
+                        <a class="text-white" [attr.href]="item.url" mat-flat-button>
+                            <i [ngClass]="item.icon"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>

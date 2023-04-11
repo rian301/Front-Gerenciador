@@ -1,0 +1,227 @@
+<mat-dialog-content>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <h4 class="title-page d-flex flex-align-center">
+                    {{ title }}
+                    <app-status-badge-subscription class="pl-2" [value]="sub?.status" [statusDescription]="sub?.statusDescription"> </app-status-badge-subscription>
+                </h4>
+            </div>
+            <div class="col-md-6 text-right pb-3" *ngIf="sub?.status">
+                <button *ngIf="statusCode != statusSubscription.Canceled && data.id != null" type="button" mat-stroked-button class="bg-danger text-white border-danger" (click)="modalConfirmationCancel()">Cancelar contrato</button>
+                <button *ngIf="statusCode != statusSubscription.Inactive && data.id != null" type="button" mat-stroked-button class="bg-warning text-white border-warning ml-3" (click)="modalConfirmationDeactivate()">Inativar contrato</button>
+                <button *ngIf="statusCode != statusSubscription.Conclude && data.id != null" type="button" mat-stroked-button class="bg-primary text-white border-primary ml-3" (click)="modalConfirmationConclude()">Concluir contrato</button>
+                <button *ngIf="statusCode != statusSubscription.Active && data.id != null" type="button" mat-stroked-button class="bg-success text-white border-success ml-3" (click)="modalConfirmationActivate()">Ativar contrato</button>
+                <!-- <button *ngIf="statusCode != statusSubscription.Active" (click)="modalConfirmationActivate()" type="button" mat-flat-button
+                    class="bg-success text-white border-success ml-2">Ativar</button> -->
+            </div>
+        </div>
+
+        <form [formGroup]="form">
+            <div class="col-12">
+                <p class="p-title">Dados da Assinatura</p>
+            </div>
+            <div class="row col-12">
+                <input-validator class="col-md-3" [messages]="{ required: 'Campo obrigatório' }">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Data de inscrição</mat-label>
+                        <input matInput type="text" formControlName="subscriptionDate" placeholder="Data de inscrição" [matDatepicker]="picker0" />
+                        <mat-datepicker-toggle matSuffix [for]="picker0"> </mat-datepicker-toggle>
+                        <mat-datepicker #picker0 color="primary" disabled="false" startView="month" [startAt]="startDate"> </mat-datepicker>
+                    </mat-form-field>
+                </input-validator>
+
+                <input-validator class="col-md-3" [messages]="{ required: 'Campo obrigatório' }">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Data de vencimento do contrato</mat-label>
+                        <input matInput type="text" formControlName="endSubscriptionDate" placeholder="Data de inscrição" [matDatepicker]="picker1" />
+                        <mat-datepicker-toggle matSuffix [for]="picker1"> </mat-datepicker-toggle>
+                        <mat-datepicker #picker1 color="primary" disabled="false" startView="month" [startAt]="startDate"> </mat-datepicker>
+                    </mat-form-field>
+                </input-validator>
+
+                <input-validator class="col-md-3" [messages]="{ required: 'Campo obrigatório' }">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Produto</mat-label>
+                        <mat-select formControlName="productId" required>
+                            <mat-option *ngFor="let item of products" [value]="item.id">{{ item.name }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </input-validator>
+
+                <input-validator class="col-md-2" [messages]="{ required: 'Campo obrigatório' }">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Valor inicial</mat-label>
+                        <input
+                            matInput
+                            type="text"
+                            formControlName="initialAmount"
+                            placeholder="Valor R$"
+                            currencyMask
+                            [options]="{
+                                prefix: 'R$ ',
+                                thousands: '.',
+                                decimal: ',',
+                                align: 'left'
+                            }"
+                            [readonly]="isUpdate"
+                            required
+                        />
+                    </mat-form-field>
+                </input-validator>
+
+                <input-validator class="col-md-2" [messages]="{ required: 'Campo obrigatório' }">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Valor desconto</mat-label>
+                        <input
+                            matInput
+                            type="text"
+                            formControlName="discountAmount"
+                            placeholder="Valor R$"
+                            currencyMask
+                            [options]="{
+                                prefix: 'R$ ',
+                                thousands: '.',
+                                decimal: ',',
+                                align: 'left'
+                            }"
+                            [readonly]="isUpdate"
+                        />
+                    </mat-form-field>
+                </input-validator>
+
+                <input-validator class="col-2" [messages]="{ required: 'Campo obrigatório' }">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Valor total</mat-label>
+                        <input
+                            matInput
+                            type="text"
+                            formControlName="totalAmount"
+                            placeholder="Valor R$"
+                            currencyMask
+                            [options]="{
+                                prefix: 'R$ ',
+                                thousands: '.',
+                                decimal: ',',
+                                align: 'left'
+                            }"
+                            [readonly]="isUpdate"
+                            required
+                        />
+                    </mat-form-field>
+                </input-validator>
+
+                <input-validator class="col-md-3" [messages]="{ required: 'Campo obrigatório' }">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Empresa</mat-label>
+                        <mat-select formControlName="mentoredCompanyId">
+                            <mat-option *ngFor="let item of companies" [value]="item.id">{{ item.companyName }} </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </input-validator>
+
+                <input-validator class="col-md-2" [messages]="{ required: 'Campo obrigatório' }">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Parcelar em</mat-label>
+                        <mat-select formControlName="installments" (selectionChange)="verifyIfDisable($event.value)" required>
+                            <mat-option *ngFor="let parcela of installments" [value]="parcela.value">
+                                {{ parcela.description }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </input-validator>
+
+                <!-- <div class="col text-right">
+          <button
+            class="btn-new"
+            mat-button
+            (click)="newPaymentMethod()"
+            [disabled]="disabled || !form.valid || invoiceList.length >= 12"
+            [ngClass]="{
+              disabled:
+                disabled || !form.valid || invoiceList.length >= 12 || isUpdate
+            }"
+          >
+            <mat-icon>add</mat-icon>Adicionar forma de pagamento
+          </button>
+        </div> -->
+                <div class="col text-right">
+                    <button class="btn-new" mat-button (click)="newPaymentMethod()"><mat-icon>add</mat-icon>Adicionar forma de pagamento</button>
+                </div>
+            </div>
+            <div [hidden]="invoiceList.length <= 0">
+                <div class="col-12">
+                    <p class="p-title">Faturas</p>
+                </div>
+                <div class="row col-12 row-invoice" *ngFor="let item of invoiceList; let i = index">
+                    <div class="col-auto align-self-center mb-2"># {{ i + 1 }}</div>
+                    <input-validator class="col-md-4" [messages]="{ required: 'Campo obrigatório' }">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Data de vencimento</mat-label>
+                            <input matInput type="text" [(ngModel)]="item.expirationDate" [ngModelOptions]="{ standalone: true }" placeholder="Data de vencimento" [matDatepicker]="pickerExpiration" required />
+                            <mat-datepicker-toggle matSuffix [for]="pickerExpiration"> </mat-datepicker-toggle>
+                            <mat-datepicker #pickerExpiration color="primary" startView="month" [startAt]="startDate"> </mat-datepicker>
+                        </mat-form-field>
+                    </input-validator>
+
+                    <input-validator class="col-md-4" [messages]="{ required: 'Campo obrigatório' }">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Data de pagamento</mat-label>
+                            <input matInput type="text" [(ngModel)]="item.paidDate" [ngModelOptions]="{ standalone: true }" placeholder="Data de pagamento" [matDatepicker]="picker2" [disabled]="statusCode == statusSubscription.Canceled" />
+                            <mat-datepicker-toggle matSuffix [for]="picker2" [disabled]="statusCode == statusSubscription.Canceled"> </mat-datepicker-toggle>
+                            <mat-datepicker #picker2 color="primary" startView="month" [startAt]="startDate"> </mat-datepicker>
+                        </mat-form-field>
+                    </input-validator>
+
+                    <input-validator class="col-md-2" [messages]="{ required: 'Campo obrigatório' }">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Valor</mat-label>
+                            <input
+                                matInput
+                                type="text"
+                                [(ngModel)]="item.amount"
+                                [ngModelOptions]="{ standalone: true }"
+                                placeholder="Valor R$"
+                                currencyMask
+                                required
+                                [options]="{
+                                    prefix: 'R$ ',
+                                    thousands: '.',
+                                    decimal: ',',
+                                    align: 'left'
+                                }"
+                            />
+                        </mat-form-field>
+                    </input-validator>
+
+                    <div class="col-auto">
+                        <button
+                            class="mt-2 btn-del"
+                            (click)="modalConfirmationDelete(item, i)"
+                            mat-icon-button
+                            mat-sm-button
+                            type="button"
+                            matTooltip="Remover"
+                            [disabled]="statusCode == statusSubscription.Canceled || statusCode == statusSubscription.Conclude"
+                        >
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <mat-dialog-actions class="mr-n2" align="end">
+            <button type="button" mat-stroked-button mat-dialog-close class="text-primary border-primary">Cancelar</button>
+            <button
+                type="submit"
+                (click)="save()"
+                mat-flat-button
+                class="bg-primary text-white"
+                [ngClass]="{ 'bg-disabled': loading || statusCode == statusSubscription.Canceled || statusCode == statusSubscription.Conclude }"
+                [class.btnSpinner]="loading"
+            >
+                Salvar
+            </button>
+        </mat-dialog-actions>
+    </div>
+</mat-dialog-content>

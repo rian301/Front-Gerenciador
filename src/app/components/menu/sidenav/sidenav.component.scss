@@ -1,0 +1,35 @@
+/*
+ * Important:
+ * For this component, it was necessary to create another SASS file to be able customize elements created by @ Angular-Material. View in:
+ * ./styles/material-custom/mat-accordion.scss
+*/
+
+@import
+    'variables',
+    'mixins/material-shadow'
+;
+
+footer {
+    background-color: $white;
+
+    p {
+        color: $gray-700;
+        font-size: 10px;
+        font-weight: 400;
+        padding: 10px 0 0 0;
+        margin: 0;
+
+        a {
+            color: $gray-700;
+            text-decoration: none;
+            font-weight: 800;
+
+            &:hover,
+            &:focus,
+            &:active {
+                color: $gray-700;
+                text-decoration: underline;
+            }
+        }
+    }
+}

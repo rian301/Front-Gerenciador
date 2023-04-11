@@ -1,0 +1,195 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <h1 class="title-page d-flex flex-align-center">
+                {{ title }}
+            </h1>
+        </div>
+    </div>
+    <mat-card>
+        <mat-tab-group mat-align-tabs="start">
+            <mat-tab label="Dados Pagamento">
+                <form [formGroup]="form" (ngSubmit)="save()" style="overflow-x: hidden">
+                    <div class="row">
+                        <div class="col-12">
+                            <p class="p-title">Informações de Pagamento</p>
+                        </div>
+
+                        <input-validator class="col-md-3" [messages]="{ required: 'Campo obrigatório' }">
+                            <ng-select appearance="outline" [items]="providers" bindLabel="name" bindValue="id" formControlName="providerId" placeholder="Fornecedor" required> </ng-select>
+                        </input-validator>
+
+                        <input-validator class="col-md-3" [messages]="{ required: 'Campo obrigatório' }">
+                            <ng-select appearance="outline" [items]="categories" bindLabel="name" bindValue="id" formControlName="categoryId" placeholder="Categoria" required> </ng-select>
+                        </input-validator>
+
+                        <input-validator class="col-md-3" [messages]="{ required: 'Campo obrigatório' }">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Data do agendamento</mat-label>
+                                <input matInput type="text" formControlName="dateSchedulingPayment" placeholder="Data do agendamento" [matDatepicker]="picker1" />
+                                <mat-datepicker-toggle matSuffix [for]="picker1"> </mat-datepicker-toggle>
+                                <mat-datepicker #picker1 color="primary" disabled="false" startView="month" [startAt]="startDate"> </mat-datepicker>
+                            </mat-form-field>
+                        </input-validator>
+
+                        <input-validator class="col-md-3" [messages]="{ required: 'Campo obrigatório' }">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Data do pagamento</mat-label>
+                                <input matInput type="text" formControlName="datePayment" placeholder="Data do pagamento" [matDatepicker]="picker2" />
+                                <mat-datepicker-toggle matSuffix [for]="picker2"> </mat-datepicker-toggle>
+                                <mat-datepicker #picker2 color="primary" disabled="false" startView="month" [startAt]="startDate"> </mat-datepicker>
+                            </mat-form-field>
+                        </input-validator>
+
+                        <input-validator class="col-md-4" [messages]="{ required: 'Campo obrigatório' }">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Descrição</mat-label>
+                                <input matInput type="text" formControlName="name" placeholder="Descrição do pagamento" required />
+                            </mat-form-field>
+                        </input-validator>
+
+                        <input-validator class="col-md-2" [messages]="{ required: 'Campo obrigatório' }">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Valor</mat-label>
+                                <input matInput type="text" formControlName="amount" placeholder="Valor R$" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',', align: 'left' }" required />
+                            </mat-form-field>
+                        </input-validator>
+
+                        <input-validator class="col-md-3" [messages]="{ required: 'Campo obrigatório' }">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Selecione os arquivos .jpg, .png ou .pdf</mat-label>
+                                <ngx-mat-file-input formControlName="files" [accept]="'.jpg, .jpeg, .png, .pdf'" (change)="changeDocType($event.value)" multiple> </ngx-mat-file-input>
+                                <mat-icon matSuffix>wallpaper</mat-icon>
+                            </mat-form-field>
+                        </input-validator>
+
+                        <input-validator class="col" [messages]="{ required: 'Campo obrigatório' }">
+                            <ng-select appearance="outline" [items]="docTypes" bindLabel="name" bindValue="type" formControlName="typeDoc" placeholder="Tipo" [required]="haveFile"> </ng-select>
+                        </input-validator>
+
+                        <div class="col-12">
+                            <p class="p-title">Informações do fornecedor (apenas leitura)</p>
+                        </div>
+
+                        <input-validator class="col-md-5" [messages]="{ required: 'Campo obrigatório' }">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Documento</mat-label>
+                                <input matInput type="text" formControlName="document" placeholder="Documento" mask="CPF_CNPJ" disabled readonly />
+                            </mat-form-field>
+                        </input-validator>
+
+                        <input-validator class="col-md-3" [messages]="{ required: 'Campo obrigatório' }">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Banco</mat-label>
+                                <input matInput type="text" formControlName="bank" placeholder="Banco" disabled readonly />
+                            </mat-form-field>
+                        </input-validator>
+
+                        <input-validator class="col-md-3" [messages]="{ required: 'Campo obrigatório' }">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Agência</mat-label>
+                                <input matInput type="text" formControlName="agency" placeholder="Agência" disabled readonly />
+                            </mat-form-field>
+                        </input-validator>
+
+                        <input-validator class="col-md-3" [messages]="{ required: 'Campo obrigatório' }">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Conta</mat-label>
+                                <input matInput type="text" formControlName="acount" placeholder="Conta" disabled readonly />
+                            </mat-form-field>
+                        </input-validator>
+
+                        <input-validator class="col-md-3" [messages]="{ required: 'Campo obrigatório' }">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Pix</mat-label>
+                                <input matInput type="text" formControlName="pix" placeholder="Pix" disabled readonly />
+                            </mat-form-field>
+                        </input-validator>
+                        <input-validator class="col-md-12 pb-2">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Observação</mat-label>
+                                <textarea matInput #input formControlName="note" placeholder="Observação" [maxLength]="1000"></textarea>
+                                <mat-hint align="end">{{ input.value?.length || 0 }}/1000</mat-hint>
+                            </mat-form-field>
+                        </input-validator>
+                        <div class="row col-12">
+                            <div class="col-md-12 text-right">
+                                <button type="button" mat-stroked-button class="text-primary border-primary mr-3" (click)="cancel()">Cancelar</button>
+                                <button type="submit" [ngClass]="{ 'bg-disabled': loading }" [class.btnSpinner]="loading" mat-flat-button class="bg-primary text-white">Salvar</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </mat-tab>
+            <mat-tab label="Documentos" *ngIf="!hidenTabs">
+                <div style="overflow-x: hidden">
+                    <div class="row mt-2">
+                        <div class="col-md-6">
+                            <mat-form-field class="col-4" appearance="outline">
+                                <mat-label>Status</mat-label>
+                                <mat-select [(ngModel)]="statusDocFilter" (selectionChange)="changeStatusDocFilter()">
+                                    <mat-option [value]="0">Todos</mat-option>
+                                    <mat-option [value]="1">Ativo</mat-option>
+                                    <mat-option [value]="2">Inativo</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-auto ml-auto pt-2">
+                            <button mat-stroked-button type="button" class="border-primary text-primary" (click)="newDoc()">Novo documento</button>
+                        </div>
+                    </div>
+                    <mat-table [dataSource]="dataSourceDocs">
+                        <ng-container matColumnDef="document">
+                            <mat-header-cell *matHeaderCellDef> Tipo de Documento </mat-header-cell>
+                            <mat-cell *matCellDef="let row"> {{ row.typeDocDescription }} </mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="fileName">
+                            <mat-header-cell *matHeaderCellDef> Nome </mat-header-cell>
+                            <mat-cell *matCellDef="let row"> {{ row.fileName }} </mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="actions">
+                            <mat-header-cell *matHeaderCellDef> Arquivo / Url </mat-header-cell>
+                            <mat-cell *matCellDef="let row">
+                                <button *ngIf="row?.urlVideo == null || row?.urlVideo == undefined" mat-icon-button mat-sm-button color="primary" class="mr-1" matTooltip="Baixar o documento" (click)="downloadDoc(row)">
+                                    <mat-icon>file_download</mat-icon>
+                                </button>
+                                <div *ngIf="row?.urlVideo != null && row?.urlVideo != undefined">
+                                    {{ row?.urlVideo }}
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="upload">
+                            <mat-header-cell *matHeaderCellDef> Enviado em </mat-header-cell>
+                            <mat-cell *matCellDef="let row"> {{ row?.createdAt | date: 'dd/MM/yyyy HH:mm' }} </mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="status">
+                            <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
+                            <mat-cell *matCellDef="let row">
+                                <span class="badge badge-status" [ngClass]="{ 'bg-success': row?.active === true, 'bg-light text-dark': row?.active === false }">
+                                    {{ row?.active ? 'Ativo' : 'Inativo' }}
+                                </span>
+                            </mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="action">
+                            <mat-header-cell *matHeaderCellDef> Ação </mat-header-cell>
+                            <mat-cell *matCellDef="let row">
+                                <button mat-icon-button mat-sm-button type="button" (click)="modalConfirmationChangeStatus(row)" matTooltip="{{ row?.active ? 'Inativar' : 'Ativar' }}">
+                                    <i class="material-icons" [ngClass]="{ 'text-danger': row?.active === true, 'text-success text-dark': row?.active === false }">{{ row?.active ? 'clear' : 'done' }}</i>
+                                </button>
+                            </mat-cell>
+                            <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+                        </ng-container>
+
+                        <mat-header-row *matHeaderRowDef="displayedColumnsDoc"></mat-header-row>
+                        <mat-row *matRowDef="let row; columns: displayedColumnsDoc"></mat-row>
+                    </mat-table>
+                </div>
+            </mat-tab>
+        </mat-tab-group>
+    </mat-card>
+</div>

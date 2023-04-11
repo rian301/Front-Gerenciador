@@ -1,0 +1,87 @@
+/*
+ * Mixin: Selector Generator
+ * By: Lucas Buetto De Angelis
+ * Url: https://codepen.io/buetto/pen/gmGXxx (Provisory)
+*/
+
+
+/*Configuration*/
+$amountGrids: 12;
+$sizes: 12 11 10 9 8 7 6 5 4 3 2 1;
+$generateAttr: true;
+
+@mixin selectorGenerator($selectorName, $property, $values, $isAttr, $isChild: true) {
+    @each $current in $values {
+        @if $isAttr {
+            //@debug "&[#{$selectorName}=#{$current}]{#{$property}: #{$current};}";
+            @if $isChild {
+                &[#{$selectorName}='#{$current}'] {
+                    #{$property}: #{$current};
+                }
+            }
+            @else {
+                [#{$selectorName}='#{$current}'] {
+                    #{$property}: #{$current};
+                }
+            }
+        }
+        @else {
+            //@debug "&.#{$property}__#{$current}{#{$property}: #{$current}";
+            @if $isChild {
+                &.#{$property}__#{$current} {
+                    #{$property}: #{$current};
+                }
+            }
+            @else {
+                .#{$property}__#{$current} {
+                    #{$property}: #{$current};
+                }
+            }
+        }
+    }
+}
+
+.row-flex {
+    width: auto;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    
+    // flex container
+    $flex-direction: row row-reverse column column-reverse;
+    @include selectorGenerator("flex-direction", "flex-direction", $flex-direction, $generateAttr);
+    $flex-wrap: nowrap wrap wrap-reverse;
+    @include selectorGenerator("flex-wrap", "flex-wrap", $flex-wrap, $generateAttr);
+    $justify-content: flex-start flex-end center space-between space-around;
+    @include selectorGenerator("justify-content", "justify-content", $justify-content, $generateAttr);
+    $align-items: flex-start flex-end center baseline stretch;
+    @include selectorGenerator("align-items", "align-items", $align-items, $generateAttr);
+    $align-content: flex-start flex-end center space-between space-around stretch;
+    @include selectorGenerator("align-content", "align-content", $align-content, $generateAttr);
+    
+    // grid system flex
+    @while $amountGrids>0 {
+        .col-flex-#{$amountGrids} {
+            flex: #{$amountGrids};
+        }
+        $amountGrids: $amountGrids - 1;
+    }
+
+    [class^="col-flex-"],
+    [class*="col-flex-"] {
+        padding: 5px;
+        margin: 5px;
+    }
+}
+
+
+// flex item
+@include selectorGenerator("flex-grow", "flex-grow", $sizes, $generateAttr, false);
+@include selectorGenerator("order", "order", $sizes, $generateAttr, false);
+@include selectorGenerator("flex-shrink", "flex-shrink", $sizes, $generateAttr, false);
+@include selectorGenerator("flex-basis", "flex-basis", $sizes, $generateAttr, false);
+@include selectorGenerator("flex-basis", "flex-basis", "auto", $generateAttr, false);
+$align-self: auto flex-start flex-end center baseline stretch;
+@include selectorGenerator("align-self", "align-self", $align-self, $generateAttr, false);

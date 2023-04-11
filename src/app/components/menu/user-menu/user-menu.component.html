@@ -1,0 +1,20 @@
+<nav class="side-nav-menu">
+
+  <div class="menu-list">
+
+    <mat-list role="list">
+
+      <mat-list-item role="listitem" *ngFor="let item of menus" class="menu-item text-uppercase" [routerLink]="item.url"
+        (click)="closeMenu()">
+        <i matPrefix class="material-icons">{{ item.icon != '' ? item.icon : 'code' }}</i>
+        <p>{{item.name}}</p>
+      </mat-list-item>
+
+      <mat-list-item role="listitem" class="menu-item text-uppercase" (click)="logout()">
+        <i matPrefix class="material-icons">exit_to_app</i>
+        <p>Sair</p>
+      </mat-list-item>
+
+    </mat-list>
+  </div>
+</nav>

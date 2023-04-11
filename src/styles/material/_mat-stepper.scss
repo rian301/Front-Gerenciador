@@ -1,0 +1,9 @@
+.mat-stepper-horizontal {
+
+  &.hidden-header {
+
+    .mat-horizontal-stepper-header-container {
+      display: none;
+    }
+  }
+}

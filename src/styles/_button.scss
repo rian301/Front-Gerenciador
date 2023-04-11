@@ -1,0 +1,177 @@
+.mat-button {
+    color: $gray-700 !important;
+    font-size: 15px;
+    padding: 4px !important;
+
+    .icon {
+        font-size: 20px;
+        position: relative;
+        top: -2px;
+    }
+
+    &.mat-white {
+        color: $gray-600 !important;
+
+        &:hover, &:active, &:focus {
+            background-color: $white;
+            color: $gray-600 !important;
+        }
+    }
+    
+    &.mat-primary {
+        color: $primary !important;
+
+        &:hover, &:active, &:focus {
+            background-color: $primary;
+            color: $white !important;
+        }
+    }
+    
+    &.mat-secondary {
+        color: $secondary !important;
+
+        &:hover, &:active, &:focus {
+            background-color: $secondary;
+            color: $white !important;
+        }
+    }
+    
+    &.mat-red {
+        color: $red !important;
+
+        &:hover, &:active, &:focus {
+            background-color: $red;
+            color: $white !important;
+        }
+    }
+    
+
+    &.mat-white-border {
+        background-color: $white;
+        color: $gray-600;
+
+        &:hover, &:active, &:focus {
+            background-color: $white;
+            color: $gray-600 !important;
+        }
+    }
+    
+    &.mat-primary-border {
+        border: 1px solid $primary;
+        color: $primary;
+
+        &:hover, &:active, &:focus {
+            background-color: $primary;
+            color: $white !important;
+        }
+    }
+    
+    &.mat-secondary-border {
+        border: 1px solid $secondary;
+        color: $secondary;
+
+        &:hover, &:active, &:focus {
+            background-color: $secondary;
+            color: $white !important;
+        }
+    }
+    
+    &.mat-red-border {
+        border: 1px solid $red;
+        color: $red;
+
+        &:hover, &:active, &:focus {
+            background-color: $red;
+            color: $white !important;
+        }
+    }
+}
+
+.mat-raised-button {
+    font-size: 15px;
+    padding: 4px !important;
+
+    &.mat-primary {
+        background-color: $primary;
+        color: $white !important;
+
+        &:hover, &:active, &:focus {
+            background-color: $secondary;
+        }
+    }
+
+    &.mat-secondary {
+        background-color: $secondary;
+        color: $white !important;
+    }
+
+    &.mat-red {
+        background-color: $red;
+        color: $white !important;
+    }
+
+    &.mat-gradient {
+        background: $gradient;
+        color: $white !important;        
+    }
+}
+
+.mat-mini-fab {
+
+    &.mat-white {
+        background-color: $white !important;
+
+        &:hover, &:active, &:focus {
+            background-color: $white;
+            color: $gray-600 !important;
+        }
+    }
+
+    &.mat-primary {
+        background-color: $primary !important;
+
+        &:hover, &:active, &:focus {
+            background-color: $primary;
+            color: $white !important;
+        }
+
+        .mat-expansion-indicator {
+
+            &:after {
+                color: $white;
+            }
+        }
+    }
+
+    &.mat-secondary {
+        background-color: $secondary !important;
+
+        &:hover, &:active, &:focus {
+            background-color: $secondary;
+            color: $white !important;
+        }
+
+        .mat-expansion-indicator {
+
+            &:after {
+                color: $white;
+            }
+        }
+    }
+
+    &.mat-red {
+        background-color: $red !important;
+
+        &:hover, &:active, &:focus {
+            background-color: $red;
+            color: $white !important;
+        }
+
+        .mat-expansion-indicator {
+
+            &:after {
+                color: $white;
+            }
+        }
+    }
+}

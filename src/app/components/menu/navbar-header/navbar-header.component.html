@@ -1,0 +1,52 @@
+<header class="navbar-header">
+  <mat-toolbar>
+
+    <mat-toolbar-row class="d-flex justify-content-between m-0 p-0">
+      <div class="row w-100 d-flex align-items-center m-0 p-0">
+        <div class="col-auto d-block d-sm-block d-md-none">
+          <button mat-icon-button class="button-toogle-menu d-block d-sm-block d-md-none" (click)="MenuToggle()">
+            <i matPrefix class="material-icons">menu_open</i>
+          </button>
+        </div>
+
+        <div class="col-auto" [class.ml-auto]="!desktopMode">
+          <div class="logo">
+            <img [src]="logo" width="150" alt="Logo admin">
+          </div>
+        </div>
+
+        <!-- <div class="new">
+          <a mat-stroked-button class="text-primary border-primary my-2" routerLink="alunos/novo" [queryParams]="{ acao: 'novo_aluno' }">
+              Novo Aluno
+          </a>
+      </div> -->
+
+        <div class="col-auto ml-auto" *ngIf="desktopMode">
+          <div class="row">
+
+            <div class="col-auto">
+              <span class="user-name" *ngIf="desktopMode">Olá, {{username}}</span>
+              <button class="mr-3" mat-button [matMenuTriggerFor]="beforeMenu" *ngIf="desktopMode">
+                <i matPrefix class="material-icons user-image border">account_circle</i>
+              </button>
+
+              <mat-menu #beforeMenu="matMenu" xPosition="before">
+                <button mat-menu-item *ngFor="let item of menus" class="d-flex align-items-center"
+                  [routerLink]="item.url">
+                  <i matPrefix class="material-icons mr-1">{{ item.icon != '' ? item.icon : 'code' }}</i>
+                  {{item.name}}
+                </button>
+                <button mat-menu-item (click)="logout()" class="d-flex align-items-center">
+                  <i matPrefix class="material-icons mr-1">exit_to_app</i>
+                  Sair
+                </button>
+              </mat-menu>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </mat-toolbar-row>
+
+  </mat-toolbar>
+</header>

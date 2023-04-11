@@ -1,0 +1,37 @@
+@media print {
+
+    @page { 
+        margin: 0 0 auto 0; 
+    }
+
+    body {
+        height: auto !important;
+        overflow: auto !important;
+        margin: 1.6cm 1.6cm auto 1.6cm;
+    }
+
+    app-navbar-header {
+        display: none;
+    }
+
+    .admin-layout {
+        height: auto !important;
+        overflow: initial !important;
+        padding: 0 !important;
+
+        .mat-drawer-content, .app-area {
+            height: auto !important;
+            overflow: initial !important;
+            padding: 0 !important;
+        }
+
+        .leftDrawer,
+        .rightDrawer {
+            display: none;
+        }
+    }
+
+    .no-print {
+        display: none;
+    }
+}

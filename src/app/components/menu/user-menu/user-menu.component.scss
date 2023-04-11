@@ -1,0 +1,97 @@
+@import 
+    'variables',
+    'mixins/material-shadow'
+;
+
+.user-menu-container {
+    background-color: $white;
+    height: 100vh;
+    overflow: auto;
+
+    .slide-menu {
+        transition: 0.2s all;
+        transform: translate3d(0%, 0, 0);
+        
+        &.hide {
+            position: absolute;
+            transform: translate3d(calc(-100% - 24px),0,0);
+        }
+
+        &.after {
+            transform: translate3d(calc(100% + 24px),0,0);
+        }
+    }
+
+    header {
+        position: relative;
+        z-index: 10;
+        @include materialShadow(1, 'box');
+        
+        .top-area {
+            background-color: $white;
+            padding: 12px 24px;
+
+            .btn-close {
+                background-color: rgba($gray-500, 0.27);
+                color: $gray-600;
+            }
+        
+            .username {
+                color: $gray-700;
+                font-weight: 500;
+            }
+        }
+
+        .return-area {
+            width: 100%;
+            background-color: $gray-300;
+            padding: 8px 24px;
+
+            .title {
+                color: $gray-900;
+                font-size: 17px;
+                font-weight: 500;
+            }
+        }
+
+    }
+
+    .content {
+        padding: 18px 24px;
+        margin-bottom: 20px;
+        overflow: auto;
+
+        .user-details {
+            border-bottom: 1px solid $gray-300;
+            padding-bottom: 32px;
+            margin-bottom: 32px;
+            
+            .user-image {
+                height: 75px;
+            }
+    
+            .cargo {
+                color: $purple;
+                font-size: 10px;
+                font-weight: 500;
+                text-decoration: none;
+            }
+            .name {
+                color: $gray-700;
+                font-size: 17px;
+                font-weight: 500;
+            }
+            .username {
+                color: $gray-600;
+                font-size: 14px;
+                font-weight: normal;
+            }
+        }
+    }
+
+    .btn-fix-bottom {
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+    }
+}

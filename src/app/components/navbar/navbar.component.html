@@ -1,0 +1,57 @@
+<!-- <mat-toolbar color="primary">
+
+    <mat-toolbar-row>
+        <img src="assets/images/logo.svg" alt="{{appName}}">
+        <span>{{appName}}</span>
+        <span class="spacer"></span>
+        <button mat-button>
+            <i class="fas fa-user"></i>
+            Font Awesome
+        </button>
+        <button mat-button>
+            <mat-icon>person</mat-icon>
+            Material Icons
+        </button>
+
+        <button mat-icon-button>
+            <mat-icon>android</mat-icon>
+        </button>
+    </mat-toolbar-row>
+
+</mat-toolbar> -->
+
+<nav class="navbar navbar-expand-lg bg-light mb-4">
+
+    <!-- Logo -->
+    <a class="navbar-brand" routerLink="/">
+        <img src="assets/images/logo.svg" alt="{{appName}}">
+        <span class="app-name d-none d-md-inline" *ngIf="appName != null">{{appName}}</span>
+    </a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+        aria-expanded="false" aria-label="Toggle navigation" (click)="showMenu == false ? showMenu = true : showMenu = false">
+        <span class="navbar-toggler-icon fas fa-ellipsis-v"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" [ngClass]="{show: showMenu}" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item" *ngFor="let item of menuItens">
+                <a *ngIf="!item.isExternal; else externalLink" routerLink="/{{item.url}}" mat-button color="primary"
+                    routerLinkActive="active" expanded="item.expanded">
+                    {{item.name}}
+                </a>
+                <ng-template #externalLink>
+                    <a [href]="item.url" target="_blank" mat-button color="accent">
+                        {{item.name}}
+                    </a>
+                </ng-template>
+            </li>
+            <li class="nav-item">
+                <a mat-button color="warn" (click)="resetDemo()">
+                    Reset demo
+                </a>
+            </li>
+        </ul>
+    </div>
+
+</nav>

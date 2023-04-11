@@ -1,0 +1,28 @@
+<div class="container-fluid">
+    <h1 class="title-page d-flex flex-align-center">
+        {{title}}
+    </h1>
+    <form [formGroup]="form" (ngSubmit)="save()" style="overflow-x: hidden;">
+        <div class="row">
+            <div class="col">
+                <input-validator [messages]="{required: 'Campo obrigatório'}">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Selecione .xlsx</mat-label>
+                        <ngx-mat-file-input (change)="incomingfile($event)" formControlName="file"
+                            [accept]="'.xlsx'">
+                        </ngx-mat-file-input>
+                        <mat-icon matSuffix>wallpaper</mat-icon>
+                    </mat-form-field>
+                </input-validator>
+            </div>
+        </div>
+    </form>
+    <div class="row mt-5">
+        <div class="col text-right">
+            <button type="button" mat-stroked-button class="text-primary border-primary mr-3"
+                (click)="cancel()"  [ngClass]="{'bg-disabled': loading}" [class.btnSpinner]="loading">Cancelar</button>
+            <button type="button" (click)="save()" [ngClass]="{'bg-disabled': loading}" [class.btnSpinner]="loading"
+                mat-flat-button class="bg-primary text-white">Salvar</button>
+        </div>
+    </div>
+</div>

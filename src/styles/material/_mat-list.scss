@@ -1,0 +1,122 @@
+.mat-list {
+
+    .mat-list-item {
+
+        .mat-list-item-content {
+            font-family: $font-family;
+            padding: 0 15px 0 20px !important;
+        }
+    }
+}
+
+@import
+    'variables',
+    'mixins/material-shadow'
+;
+
+.side-nav-menu {
+    background-color: $white;
+    overflow: hidden;
+
+    .menu-list {
+        height: calc(100vh - 88px);
+        overflow-x: hidden;
+        overflow-y: auto;
+        padding-bottom: 10px;
+
+        .menu-item {
+            background-color: $white;
+            color: $secondary;
+            cursor: pointer;
+            box-shadow: none;
+            border-radius: 0;
+
+            &.mat-expansion-panel-spacing {
+                margin: 0;
+            }
+
+            .mat-expansion-panel-header-title,
+            &.mat-list-item {
+                color: $secondary;
+                font-weight: normal;
+                align-items: center;
+
+                .mat-icon {
+                    font-size: 26px;
+                    margin-right: 16px;
+                }
+
+                span,
+                p {
+                    font-size: 14px;
+                }
+            }
+
+            .mat-expansion-panel-header {
+                font-family: $font-family;
+                padding: 0 15px 0 20px;
+
+                &.mat-expanded {
+                    height: 48px !important;
+                }
+            }
+
+            .menu-subitem {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                padding: 16px 24px 16px 30px;
+                font-size: 14px;
+                font-weight: normal;
+                color: $gray-700;
+
+                .mat-icon, i {
+                    font-size: 20px;
+                    margin-right: 16px;
+                }
+            }
+
+            &.active {
+                background-color: $gray-200;
+
+                .mat-expansion-panel-header,
+                &.mat-list-item {
+                    max-height: 54px;
+                    // padding: 0 15px 0 20px;
+                    position: relative;
+
+                    &:before {
+                        content: "";
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 5px;
+                        height: 100%;
+                        background-color: $secondary;
+                    }
+
+                    .mat-expansion-panel-header-title, & {
+                        color: $secondary;
+                        font-weight: bold;
+                    }
+                }
+
+                .menu-subitem {
+
+                    &.active {
+                        background-color: $gray-200;
+                        color: $secondary;
+
+                        p {
+                            font-weight: bold;
+                            color: $secondary;
+                        }
+                    }
+
+                }
+
+            }
+        }
+    }
+
+}

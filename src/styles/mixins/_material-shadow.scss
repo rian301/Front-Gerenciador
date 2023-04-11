@@ -1,0 +1,37 @@
+/*
+ * Mixin: Material Shadow
+ * By: Lucas Buetto De Angelis
+ * Url: https://gist.github.com/lucasbuetto/19532920b36e70a52f9dba62d8838985 (provisory)
+*/
+@mixin materialShadow($level: 1, $type: "box", $color: #000000) {
+    @if $type == "text" {
+      @if $level == 1 {
+        text-shadow: 0 1px 3px rgba($color, 0.12), 0 1px 2px rgba($color, 0.24);
+      } @else if $level == 2 {
+        text-shadow: 0 3px 6px rgba($color, 0.16), 0 3px 6px rgba($color, 0.23);
+      } @else if $level == 3 {
+        text-shadow: 0 10px 20px rgba($color, 0.19),
+        0 6px 6px rgba($color, 0.23);
+      } @else if $level == 4 {
+        text-shadow: 0 14px 28px rgba($color, 0.25),
+        0 10px 10px rgba($color, 0.22);
+      } @else if $level == 5 {
+        text-shadow: 0 19px 38px rgba($color, 0.3),
+        0 15px 12px rgba($color, 0.22);
+      }
+    } @else {
+      @if $level == 1 {
+        box-shadow: 0 1px 3px rgba($color, 0.12), 0 1px 2px rgba($color, 0.24);
+      } @else if $level == 2 {
+        box-shadow: 0 3px 6px rgba($color, 0.16), 0 3px 6px rgba($color, 0.23);
+      } @else if $level == 3 {
+        box-shadow: 0 10px 20px rgba($color, 0.19), 0 6px 6px rgba($color, 0.23);
+      } @else if $level == 4 {
+        box-shadow: 0 14px 28px rgba($color, 0.25),
+        0 10px 10px rgba($color, 0.22);
+      } @else if $level == 5 {
+        box-shadow: 0 19px 38px rgba($color, 0.3),
+        0 15px 12px rgba($color, 0.22);
+      }
+    }
+  };

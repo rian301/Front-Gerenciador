@@ -1,0 +1,15 @@
+<h1 class="title-page d-flex flex-align-center">
+  Usuários
+</h1>
+<mat-card>
+
+  <div class="row">
+    <div class="col-auto pt-1">
+      <button mat-stroked-button type="button" class="border-primary text-primary" (click)="novo()">Novo</button>
+    </div>
+    <div class="col-12 mt-3">
+      <app-dinamic-table [source]="source" [canShowActions]="true" [canChangePassword]="true" (isChangePassword)="trocarSenha($event)" (isEditing)="editar($event)">
+      </app-dinamic-table>
+    </div>
+  </div>
+</mat-card>

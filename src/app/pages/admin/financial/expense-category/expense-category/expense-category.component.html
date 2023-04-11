@@ -1,0 +1,31 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6">
+            <h1 class="title-page d-flex flex-align-center pt-2">
+                {{title}}
+            </h1>
+        </div>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="save()" style="overflow-x: hidden;">
+        <div class="row pt-3">
+            <input-validator class="col" [messages]="{required: 'Campo obrigatório'}">
+                <mat-form-field appearance="outline">
+                    <mat-label>Nome</mat-label>
+                    <input matInput type="text" formControlName="name" placeholder="Nome da categoria de despesa"
+                        required cdkFocusInitial>
+                </mat-form-field>
+            </input-validator>
+
+
+            <div class="row col-12">
+                <div class="col-md-12 text-right">
+                    <button type="button" mat-stroked-button class="text-primary border-primary mr-3"
+                        (click)="cancel()">Cancelar</button>
+                    <button type="submit" [ngClass]="{'bg-disabled': loading}" [class.btnSpinner]="loading"
+                        mat-flat-button class="bg-primary text-white">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,19 @@
+@import "variables";
+
+footer {
+    background-color: black;
+    padding: 40px 0;
+
+    &.bg-admin {
+        background-color: $secondary
+    }
+
+    .mat-flat-button {
+        border-radius: 0;
+
+        i {
+            color: black;
+            font-size: 22px;
+        }
+    }
+}

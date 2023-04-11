@@ -1,0 +1,15 @@
+{
+    "trailingComma": "es5",
+    "singleQuote": true,
+    "endOfLine": "lf",
+    "tabWidth": 4,
+    "arrowParens": "avoid",
+    "printWidth": 250,
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true,
+    "editor.formatOnType": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "[html]": {
+        "editor.defaultFormatter": "vscode.html-language-features"
+    }
+}

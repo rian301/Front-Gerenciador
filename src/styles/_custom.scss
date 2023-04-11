@@ -1,0 +1,99 @@
+.badge {
+    font-size: 12px;
+    padding: 7px;
+    color: #fff;
+
+    &.bg-success {
+        background-color: #198754!important;
+    }
+}
+
+.mat-card:not([class*=mat-elevation-z]){
+    box-shadow: 0 3.2px 7.2px 0 rgb(0 0 0 / 13%), 0 0.6px 1.8px 0 rgb(0 0 0 / 11%);
+    border-radius: 0px;
+}
+
+.mat-card {
+    border-radius: 0px;
+}
+
+.mat-paginator-table {
+    box-shadow: 0 3.2px 7.2px 0 rgb(0 0 0 / 13%), 0 0.6px 1.8px 0 rgb(0 0 0 / 11%);
+}
+
+.mat-footer-row {
+    font-weight: bold;
+}
+
+.ng-select {
+    margin-top: -5px;
+}
+
+.ng-select .ng-select-container.ng-appearance-outline {
+    min-height: 60px;
+}
+
+.ng-select .ng-select-container .ng-value-container .ng-placeholder {
+    font-size: 14px;
+    padding-top: 7px;
+}
+
+.ng-select .ng-select-container.ng-appearance-outline .ng-value {
+    font-size: 14px;
+    padding-top: 7px;
+}
+
+.ng-select .ng-select-container .ng-value-container .ng-input>input {
+    padding: 0 0 0 12px !important;
+    margin-bottom: 8px;
+}
+
+// .ng-select.ng-select-multiple .ng-select-container.ng-has-value{
+
+//     min-height: 39px;
+
+//     height: auto;
+
+//     overflow: auto;
+
+// }
+
+.ck-editor__editable_inline {
+    min-height: 250px;
+    max-height: 400px;
+    overflow: auto;
+    line-height: 25px;
+    p {        
+        margin: 20px 0;
+        &:first-child{
+            margin: 0;
+        }
+    }   
+}
+
+@keyframes spinner {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.btnSpinner:before {
+    content: "";
+    box-sizing: border-box;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin-top: -10px;
+    margin-left: -10px;
+    border-radius: 50%;
+    border: 2px solid #ffffff;
+    border-top-color: $primary;
+}
+
+.bg-disabled {
+    background-color: rgb(202, 199, 199) !important;
+    pointer-events: none;
+    border-top-color: #337ab7;
+}

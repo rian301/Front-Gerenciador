@@ -1,0 +1,87 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6">
+            <h1 class="title-page d-flex flex-align-center pt-2">
+                {{title}}
+            </h1>
+        </div>
+    </div>
+
+    <mat-card>
+        <form [formGroup]="form" (ngSubmit)="save()" style="overflow-x: hidden;">
+            <div class="row pt-3">
+                <input-validator class="col-md-9" [messages]="{required: 'Campo obrigatório'}">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Nome</mat-label>
+                        <input matInput type="text" formControlName="name" placeholder="Nome do aulão" required
+                            cdkFocusInitial>
+                    </mat-form-field>
+                </input-validator>
+
+                <input-validator class="col-md-3" [messages]="{required: 'Campo obrigatório'}">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Data</mat-label>
+                        <input matInput type="text" formControlName="date" placeholder="Data" [matDatepicker]="picker"
+                            required>
+                        <mat-datepicker-toggle matSuffix [for]="picker">
+                        </mat-datepicker-toggle>
+                        <mat-datepicker #picker color="primary" disabled="false" startView="multi-year"
+                            [startAt]="startDate">
+                        </mat-datepicker>
+                    </mat-form-field>
+                </input-validator>
+
+                <input-validator class="col-md-6" [messages]="{required: 'Campo obrigatório'}">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Link aula</mat-label>
+                        <input matInput type="text" formControlName="linkClass" placeholder="Link do produto">
+                    </mat-form-field>
+                </input-validator>
+
+                <input-validator class="col-md-6" [messages]="{required: 'Campo obrigatório'}">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Link informações</mat-label>
+                        <input matInput type="text" formControlName="linkInfo" placeholder="Link das informações">
+                    </mat-form-field>
+                </input-validator>
+
+                <input-validator class="col-md-6" [messages]="{required: 'Campo obrigatório'}">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Link copy</mat-label>
+                        <input matInput type="text" formControlName="linkCopy" placeholder="Link do copy">
+                    </mat-form-field>
+                </input-validator>
+
+                <input-validator class="col-md-6" [messages]="{required: 'Campo obrigatório'}">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Link criativo</mat-label>
+                        <input matInput type="text" formControlName="linkCreative" placeholder="Link do criativo">
+                    </mat-form-field>
+                </input-validator>
+
+                <input-validator class="col-md-6" [messages]="{required: 'Campo obrigatório'}">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Link tráfego</mat-label>
+                        <input matInput type="text" formControlName="linkTraffic" placeholder="Link do tráfego">
+                    </mat-form-field>
+                </input-validator>
+
+                <input-validator class="col-md-6" [messages]="{required: 'Campo obrigatório'}">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Link cadastro</mat-label>
+                        <input matInput type="text" formControlName="linkRegister" placeholder="Link do cadastro">
+                    </mat-form-field>
+                </input-validator>
+
+                <div class="row col-12">
+                    <div class="col-md-12 text-right">
+                        <button type="button" mat-stroked-button class="text-primary border-primary mr-3"
+                            (click)="cancel()">Cancelar</button>
+                        <button type="submit" [ngClass]="{'bg-disabled': loading}" [class.btnSpinner]="loading"
+                            mat-flat-button class="bg-primary text-white">Salvar</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </mat-card>
+</div>

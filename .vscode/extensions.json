@@ -1,0 +1,16 @@
+{
+    "recommendations": [
+      "lokalise.i18n-ally",
+      "alexiv.vscode-angular2-files",
+      "angular.ng-template",
+      "trinm1709.dracula-theme-from-intellij",
+      "editorconfig.editorconfig",
+      "eamodio.gitlens",
+      "k--kato.intellij-idea-keybindings",
+      "ms-vscode.vscode-typescript-next",
+      "pkief.material-icon-theme",
+      "eg2.vscode-npm-script",
+      "mrmlnc.vscode-scss",
+      "tabnine.tabnine-vscode"
+    ]
+}
